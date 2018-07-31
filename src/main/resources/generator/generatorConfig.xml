@@ -7,10 +7,11 @@
     <classPathEntry  location="D:\\mysql-connector-java-5.1.7-bin.jar"/>
     <context id="DB2Tables"  targetRuntime="MyBatis3">
         <commentGenerator>
-            <property name="suppressdate" value="true"/>
+            <property name="suppressDate" value="true"/>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
-            <property name="suppressallcomments" value="true"/>
+            <property name="suppressAllComments" value="true"/>
         </commentGenerator>
+
         <!--数据库链接url，用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://127.0.0.1:3306/summary"
@@ -18,7 +19,7 @@
                         password= "admin123">
         </jdbcConnection>
         <javaTypeResolver >
-            <property name="forcebigdecimals" value="false"/>
+            <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!-- 生成模型的包名和位置-->
         <javaModelGenerator targetPackage="com.summary.zkhdsummary.bean" targetProject="src/main/java">
@@ -36,8 +37,9 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
         <!-- 要生成的表 tablename是数据库中的表名或视图名 domainobjectname是实体类名-->
-        <table tableName="user" domainObjectName="user"></table>
-        <table tableName="power" domainObjectName="power"></table>
-        <table tableName="log" domainObjectName="log"></table>
+        <table tableName="user" domainObjectName="User"></table>
+        <table tableName="power" domainObjectName="Power"></table>
+        <table tableName="log" domainObjectName="Log"></table>
+        <table tableName="comment" domainObjectName="Comment"></table>
     </context>
 </generatorConfiguration>

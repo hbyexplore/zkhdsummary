@@ -1,7 +1,9 @@
 package com.summary.zkhdsummary;
 
-import com.summary.zkhdsummary.bean.power;
-import com.summary.zkhdsummary.mapper.powerMapper;
+import com.summary.zkhdsummary.bean.Power;
+
+import com.summary.zkhdsummary.mapper.PowerMapper;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +13,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ZkhdsummaryApplicationTests {
+
     @Autowired
-    private powerMapper powerMapper;
+    private PowerMapper powerMapper;
     @Test
     public void contextLoads() {
 
-        power power = powerMapper.selectByPrimaryKey(1);
+        Power power = powerMapper.selectByPrimaryKey(1);
 
         System.out.println(power.getPower());
 

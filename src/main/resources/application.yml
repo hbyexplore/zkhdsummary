@@ -4,7 +4,7 @@ server:
 spring:
     datasource:
         name: summary
-        url: jdbc:mysql://127.0.0.1:3306/summary
+        url: jdbc:mysql://192.168.103.153:3306/summary
         username: root
         password: admin123
 

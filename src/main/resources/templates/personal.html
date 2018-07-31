@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>个人中心</title>
+	<link rel="stylesheet" href="res/layui/css/bootstrap.min.css" th:href="@{layui/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="res/layui/css/layui.css" th:href="@{layui/css/layui.css}">
+	<link rel="stylesheet" href="res/css/global.css" th:href="@{css/global.css}">
+
+	<style>
+		.list-group-item {
+			border: none;
+		}
+
+		h3 {
+			margin: 0;
+		}
+
+		.panel-body {
+			max-height: 200px;
+			min-height: 200px;
+			overflow-y: scroll;
+		}
+
+		.laypage-main {
+			margin: 0;
+		}
+
+		.panel-success>.panel-heading {
+			color: #ffffff;
+			background-color: #393D49;
+			border-color: #009688;
+		}
+		small{
+			color: white;
+		}
+	</style>
+
+</head>
+
+<body>
+	<header id="header" th:replace="head::html"></header>
+	<!--<iframe src="head.html" scrolling="no" width="100%" height="65px"></iframe>-->
+	<div class='container'>
+		<ul class="list-group">
+			<li class="list-group-item">
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<h3>今天我敲了一段代码
+							<small style="margin:0 15px;">2017/7/30</small>
+							<small>浏览量：30</small>
+						</h3>
+					</div>
+					<div class="panel-body">
+						通过在文本输入框
+						<input> 前面、后面或是两边加上文字或按钮，可以实现对表单控件的扩展。为 .input-group 赋予 .input-group-addon 或 .input-group-btn 类，可以给 .form-control 的前面或后面添加额外的元素。通过在文本输入框
+						<input> 前面、后面或是两边加上文字或按钮，可以实现对表单控件的扩展。为 .input-group 赋予 .input-group-addon 或 .input-group-btn 类，可以给 .form-control 的前面或后面添加额外的元素。通过在文本输入框
+						<input> 前面、后面或是两边加上文字或按钮，可以实现对表单控件的扩展。为 .input-group 赋予 .input-group-addon 或 .input-group-btn 类，可以给 .form-control 的前面或后面添加额外的元素。通过在文本输入框
+						<input> 前面、后面或是两边加上文字或按钮，可以实现对表单控件的扩展。为 .input-group 赋予 .input-group-addon 或 .input-group-btn 类，可以给 .form-control 的前面或后面添加额外的元素。通过在文本输入框
+						<input> 前面、后面或是两边加上文字或按钮，可以实现对表单控件的扩展。为 .input-group 赋予 .input-group-addon 或 .input-group-btn 类，可以给 .form-control 的前面或后面添加额外的元素。
+					</div>
+				</div>
+			</li>
+			<li class="list-group-item">
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<h3>今天我敲了一段代码
+							<small style="margin:0 15px;">2017/7/30</small>
+							<small>浏览量：30</small>
+						</h3>
+					</div>
+					<div class="panel-body">
+						通过在文本输入框
+						<input> 前面、后面或是两边加上文字或按钮，可以实现对表单控件的扩展。为 .input-group 赋予 .input-group-addon 或 .input-group-btn 类，可以给 .form-control 的前面或后面添加额外的元素。通过在文本输入框
+						<input> 前面、后面或是两边加上文字或按钮，可以实现对表单控件的扩展。为 .input-group 赋予 .input-group-addon 或 .input-group-btn 类，可以给 .form-control 的前面或后面添加额外的元素。通过在文本输入框
+						<input> 前面、后面或是两边加上文字或按钮，可以实现对表单控件的扩展。为 .input-group 赋予 .input-group-addon 或 .input-group-btn 类，可以给 .form-control 的前面或后面添加额外的元素。
+					</div>
+				</div>
+			</li>
+			<li class="list-group-item">
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<h3>今天我敲了一段代码
+							<small style="margin:0 15px;">2017/7/30</small>
+							<small>浏览量：30</small>
+						</h3>
+					</div>
+					<div class="panel-body">
+						暂无内容
+					</div>
+				</div>
+			</li>
+		</ul>
+		<div style="text-align: center">
+			<div class="laypage-main">
+				<span class="laypage-curr">1</span>
+				<a href="">2</a>
+				<a href="">3</a>
+				<a href="">4</a>
+				<a href="">5</a>
+				<span>…</span>
+				<a href="" class="laypage-last" title="尾页">尾页</a>
+				<a href="" class="laypage-next">下一页</a>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

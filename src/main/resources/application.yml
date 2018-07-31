@@ -4,7 +4,7 @@ server:
 spring:
     datasource:
         name: summary
-        url: jdbc:mysql://192.168.103.153:3306/summary
+        url: jdbc:mysql://192.168.103.7:3306/summary?useUnicode=true&characterEncoding=utf-8&useSSL=false
         username: root
         password: admin123
 
@@ -13,4 +13,4 @@ spring:
         driver-class-name: com.mysql.jdbc.Driver
 mybatis:
     mapper-locations: classpath:mapping/*.xml  #映射文件路径
-    type-aliases-package: com.summary.zkhdsummary.bean  #实体类路径
+#    type-aliases-package: com.summary.zkhdsummary.bean  #实体类路径

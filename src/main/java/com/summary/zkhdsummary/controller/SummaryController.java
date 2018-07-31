@@ -16,4 +16,9 @@ public class SummaryController {
 
         return "index";
     }
+    @RequestMapping(value = {"/summary/add"})
+    public String indexx(){
+
+        return "login";
+    }
 }

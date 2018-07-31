@@ -5,11 +5,13 @@ public class User {
 
     private String name;
 
+    private String department;
+
     private String password;
 
     private Integer card;
 
-    private Integer userPower = 1;  //权限默认为user
+    private Integer userPower = 1; //权限默认为user
 
     public Integer getId() {
         return id;
@@ -25,6 +27,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department == null ? null : department.trim();
     }
 
     public String getPassword() {

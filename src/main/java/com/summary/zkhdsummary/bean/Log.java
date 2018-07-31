@@ -7,7 +7,9 @@ public class Log {
 
     private Date date;
 
-    private Integer hot = 0;  //热度默认为0
+    private Integer hot = 0; //热度默认为0
+
+    private String title;
 
     private Integer userid;
 
@@ -35,6 +37,14 @@ public class Log {
 
     public void setHot(Integer hot) {
         this.hot = hot;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
     }
 
     public Integer getUserid() {

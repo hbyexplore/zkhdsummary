@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.summary.zkhdsummary.bean.User" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="card" property="card" jdbcType="INTEGER" />
     <result column="user_power" property="userPower" jdbcType="INTEGER" />
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, password, card, user_power
+    id, name, department, password, card, user_power
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.summary.zkhdsummary.bean.UserExample" >
     select
@@ -100,10 +101,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.summary.zkhdsummary.bean.User" >
-    insert into user (id, name, password, 
-      card, user_power)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{card,jdbcType=INTEGER}, #{userPower,jdbcType=INTEGER})
+    insert into user (id, name, department, 
+      password, card, user_power
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{card,jdbcType=INTEGER}, #{userPower,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.summary.zkhdsummary.bean.User" >
     insert into user
@@ -113,6 +116,9 @@
       </if>
       <if test="name != null" >
         name,
+      </if>
+      <if test="department != null" >
+        department,
       </if>
       <if test="password != null" >
         password,
@@ -130,6 +136,9 @@
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
@@ -157,6 +166,9 @@
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
+      <if test="record.department != null" >
+        department = #{record.department,jdbcType=VARCHAR},
+      </if>
       <if test="record.password != null" >
         password = #{record.password,jdbcType=VARCHAR},
       </if>
@@ -175,6 +187,7 @@
     update user
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
+      department = #{record.department,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       card = #{record.card,jdbcType=INTEGER},
       user_power = #{record.userPower,jdbcType=INTEGER}
@@ -187,6 +200,9 @@
     <set >
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
@@ -203,6 +219,7 @@
   <update id="updateByPrimaryKey" parameterType="com.summary.zkhdsummary.bean.User" >
     update user
     set name = #{name,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       card = #{card,jdbcType=INTEGER},
       user_power = #{userPower,jdbcType=INTEGER}

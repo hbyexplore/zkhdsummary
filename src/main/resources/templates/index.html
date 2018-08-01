@@ -110,17 +110,18 @@
 	<div class="main layui-clear  " id="m65">
 		<div class="content layui-row" style="margin-right:0">
 			<div class="layui-col-md3">
-				<form action="" class="layui-form">
+				<form action="/summary/search" th:action="@{/summary/search}" class="layui-form" method="get">
 					<div class="layui-form-item">
 						<label class="layui-form-label">姓名:</label>
 						<div class="layui-input-block">
-							<input type="text" name="username" required lay-verify="required" placeholder="请输入姓名" class="layui-input">
+							<input type="text" name="username"  placeholder="请输入姓名" class="layui-input">
 						</div>
 					</div>
+					<!--required lay-verify="required"  如需必填写此属性-->
 					<div class="layui-form-item">
 						<label class="layui-form-label">日期:</label>
 						<div class="layui-input-block">
-							<input type="date" name="userdate" required lay-verify="required" placeholder="请输入日期" class="layui-input">
+							<input type="date" name="userdate"  placeholder="请输入日期" class="layui-input">
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -135,15 +136,15 @@
 				<ul class="fly-list">
 					<!--使用th:each进行遍历-->
 					<li class="fly-list-li" th:each="user:${users}" >
-						<span class="avatar" th:text="${#strings.substring(user.getName(),0,1)}"></span>
+						<span class="avatar" th:text="${#strings.substring(user.getUsername(),0,1)}"></span>
 						<h2 class="fly-tip">
-							<a href="/summary/detail"> [[${user.getName()}]]每日总结 </a>
+							<a href="/summary/detail" th:href="@{'/summary/detail/'+${user.getLid()}}"> [[${user.getTitle()}]] </a>
 						</h2>
 						<p>
 							<span>
-								<a href="" th:text="${user.getName()}"></a>
+								<a href="" th:text="${user.getUsername()}"></a>
 							</span>
-							<span th:text="${user.getNewTime()}"></span>
+							<span th:text="${#dates.format(user.getLogDate(),'yyyy-MM-dd HH:mm:ss')}"></span>
 							<span class="fly-list-hint">
 								<i class="iconfont" title="评论">&#xe60c;</i>[[${user.getCommentCount()}]]
 							</span>

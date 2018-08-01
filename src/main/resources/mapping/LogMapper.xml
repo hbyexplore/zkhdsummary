@@ -1,17 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.summary.zkhdsummary.mapper.LogMapper" >
-    <!--查询出所有log记录-->
+    <!--查询出所有log记录
        <select id="findList" resultType="com.summary.zkhdsummary.bean.Log">
            select * from log;
        </select>
-    <!--根据user id查询出其发表总结的时间-->
+    &lt;!&ndash;根据user id查询出其发表总结的时间&ndash;&gt;
     <select id="findTime" resultType="java.util.Date" parameterType="int" >
            select date from log where userid = #{userid};
 
     </select>
-    <!--根据user id 查询出其发表总结-->
-    <select id="findSummaryById" resultType="com.summary.zkhdsummary.bean.Log" parameterType="int" >
+    &lt;!&ndash;根据user id 查询出其发表总结&ndash;&gt;
+    -根据id查询所有的log-->
+    <!--<select id="findSummaryById" resultType="com.summary.zkhdsummary.bean.Log" parameterType="int" >
            select * from log where userid = #{userid};
+    </select>-->
+
+
+    <!--<resultMap id="logbean" type="com.summary.zkhdsummary.bean.LogBean">
+        <id column="id" property=""
+    </resultMap>-->
+    <!--查询出log表的所有id-->
+    <select id="findSummaryById" resultType="java.lang.Integer">
+           select id from log;
+    </select>
+<!--根据id查询出所有首页要展示的数据-->
+    <select id="findList" resultType="com.summary.zkhdsummary.bean.LogBean" parameterType="int" >
+          select u.id uid,u.name username,l.title ,l.date logDate,l.log logContent,l.id lid,COUNT(c.id) commentCount  from log l
+            join user u on l.userid=u.id
+            join comment c on l.id=c.log_id
+            WHERE l.id=#{id};
+    </select>
+    <!--模糊查询数据-->
+    <select id="searchLog"  resultType="com.summary.zkhdsummary.bean.LogBean">
+        select u.id uid,u.name username,l.title,l.date logDate,l.log logContent,l.id lid
+         from log l
+        join user u on l.userid=u.id
+        <where>
+            <if test="username!=''">
+                and u.name like '%${username}%'
+            </if>
+            <if test="userdate!=''">
+                and l.date like '%${userdate}%'
+            </if>
+        </where>
+    </select>
+    <!--根据id查出对应的评论数-->
+    <select id="findListById" resultType="java.lang.Integer" parameterType="int" >
+          select COUNT(c.id) commentCount  from log l
+            join user u on l.userid=u.id
+            join comment c on l.id=c.log_id
+            WHERE l.id=#{id};
     </select>
 </mapper>

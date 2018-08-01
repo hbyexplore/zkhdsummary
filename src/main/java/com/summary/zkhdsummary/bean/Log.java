@@ -26,11 +26,5 @@ public class Log implements Serializable {
 
     private String log;
 
-    //存储评论
-    private List<Comment> comment;
-
-    //评论数量
-    private  Integer commentCount;
-
 
 }

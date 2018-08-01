@@ -5,6 +5,8 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,5 +25,12 @@ public class Log implements Serializable {
     private Integer userid;
 
     private String log;
+
+    //存储评论
+    private List<Comment> comment;
+
+    //评论数量
+    private  Integer commentCount;
+
 
 }

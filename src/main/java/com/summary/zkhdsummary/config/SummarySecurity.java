@@ -22,7 +22,7 @@ public class SummarySecurity extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //定制请求的授权规则规则
+       /* //定制请求的授权规则规则
         http.authorizeRequests().antMatchers("/").permitAll()
                 //请求level1,要有VIP1授权
                 .antMatchers("/summary/**").hasRole("user")
@@ -36,7 +36,7 @@ public class SummarySecurity extends WebSecurityConfigurerAdapter {
                 .logout().logoutSuccessUrl("/login")
         //开启记住我功能,参数名默认为rememberMe
                 .and()
-                .rememberMe();
+                .rememberMe();*/
     }
 
     /**
@@ -46,12 +46,12 @@ public class SummarySecurity extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        List<User> allUser = userService.findAllUser();
+       /* List<User> allUser = userService.findAllUser();
         for (User user : allUser) {
             System.out.println(
                     user
             );
         }
-
+*/
     }
 }

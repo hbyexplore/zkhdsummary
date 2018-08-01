@@ -9,10 +9,13 @@
         <result column="card" property="card"></result>
         <association property="userPower" javaType="com.summary.zkhdsummary.bean.Power">
         <id column="id" property="id"></id>
-        <result column="power" property="power"></result>
         </association>
     </resultMap>
     <select id="findAllUser" resultMap="basicUser">
       select  * from user;
+    </select>
+    <!--根据id查询user-->
+    <select id="findByid" resultMap="basicUser" parameterType="java.lang.Integer">
+      select  * from user where id=#{id};
     </select>
 </mapper>

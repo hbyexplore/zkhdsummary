@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.summary.zkhdsummary.mapper.LogMapper" >
+    <select id="findLogById" parameterType="Integer" resultType="com.summary.zkhdsummary.bean.Log">
+        select l.title,l.date,l.log,l.hot from user u
+        inner join log l on u.id = l.userid
+        where l.userid = #{id}
+    </select>
 
+   <select id="countLog" parameterType="Integer" resultType="int">
+        select count(l.userid) from user u
+        inner join log l on u.id = l.userid
+        where l.userid = #{id}
+    </select>
+
+    <select id="findUserByDate" parameterType="String" resultType="Integer">
+       select distinct u.card from user u
+       inner join log l on u.id = l.userid
+       where l.date = #{date}
+    </select>
 </mapper>

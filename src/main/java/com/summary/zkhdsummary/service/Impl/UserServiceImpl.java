@@ -21,4 +21,14 @@ public class UserServiceImpl implements UserService {
         List<User> users = userMapper.findAllUser();
         return users;
     }
+
+    @Override
+    public List<Integer> findAllCrad() {
+        return userMapper.findAllCrad();
+    }
+
+    @Override
+    public String findUserByCrad(int crad) {
+        return userMapper.findUserByCrad(crad);
+    }
 }

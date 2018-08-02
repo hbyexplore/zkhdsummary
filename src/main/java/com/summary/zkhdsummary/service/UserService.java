@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface UserService {
    public List<User> findAllUser();
+   List<Integer> findAllCrad();
+
+   String findUserByCrad(int crad);
 }

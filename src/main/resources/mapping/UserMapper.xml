@@ -15,4 +15,13 @@
     <select id="findAllUser" resultMap="basicUser">
       select  * from user;
     </select>
+
+    <select id="findAllCrad" resultType="Integer">
+        select user.card from user;
+    </select>
+
+    <select id="findUserByCrad" parameterType="int" resultType="String">
+        select user.name from user where card = #{crad};
+    </select>
+
 </mapper>

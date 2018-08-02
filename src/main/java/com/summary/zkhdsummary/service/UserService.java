@@ -11,4 +11,6 @@ public interface UserService {
    String findUserByCrad(int crad);
 
    Integer insterUser(User user);
+
+    User findUserIdByName(String username);
 }

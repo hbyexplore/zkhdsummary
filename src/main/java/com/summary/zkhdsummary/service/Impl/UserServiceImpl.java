@@ -46,4 +46,14 @@ public class UserServiceImpl implements UserService {
         int i = userMapper.insertUser(user);
         return i ;
     }
+
+    /**
+     *  通过username获取user id
+     * @param username
+     * @return
+     */
+    @Override
+    public User findUserIdByName(String username) {
+        return userMapper.findUserIdByName(username);
+    }
 }

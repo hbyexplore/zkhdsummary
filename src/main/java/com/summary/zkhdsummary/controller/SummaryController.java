@@ -8,6 +8,7 @@ import com.summary.zkhdsummary.bean.Log;
 import com.summary.zkhdsummary.config.PageBean;
 import com.summary.zkhdsummary.config.SummarySecurity;
 import com.summary.zkhdsummary.service.LogService;
+import com.summary.zkhdsummary.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.summary.zkhdsummary.bean.Log;
 import com.summary.zkhdsummary.service.LogService;
@@ -29,6 +30,9 @@ public class SummaryController {
     @Autowired
     private LogService logService;
 
+    @Autowired
+    private UserService userService;
+    @Autowired
     private CommentService commentService;
 
     @Autowired
@@ -122,12 +126,13 @@ public class SummaryController {
     @RequestMapping("/summary/personal/{username}")
     public String personal(Model model,HttpServletRequest request,
                            @PathVariable String username,
-                           @RequestParam(required = false, value = "currement", defaultValue = "") int currement,
-                           @RequestParam(required = false, value = "pageSize", defaultValue = "") int pageSize
+                           @RequestParam(required = false, value = "currement", defaultValue = "1") int currement,
+                           @RequestParam(required = false, value = "pageSize", defaultValue = "5") int pageSize
     ){
         //根据名称查询出该用户所有相关的评论
         //将信息封装到一个list集合中
-        PageBean<Log> pageBean = logService.findLogById(username,currement,pageSize);
+        User userId= userService.findUserIdByName(username);
+        PageBean<Log> pageBean = logService.findLogById(userId.getId(),currement,pageSize);
         List<Log> logList = pageBean.getItems();
         PageInfo pageInfo = new PageInfo(logList);
         System.out.println(logList);

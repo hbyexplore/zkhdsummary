@@ -129,6 +129,9 @@ public class SummaryController {
      */
     @GetMapping(value = {"/summary/addSummary/{username}"})
     public String searchindx(@PathVariable String username,String logTitle,String logContent) throws UnsupportedEncodingException {
+        if (username.equals("anonymousUser")){
+            return "redirect:/index";
+        }
         //没有写总结就跳到add页面
         if (logTitle==null && logContent==null){
             return "add";

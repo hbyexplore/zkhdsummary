@@ -8,12 +8,81 @@
         <result column="password" property="password"></result>
         <result column="card" property="card"></result>
         <association property="userPower" javaType="com.summary.zkhdsummary.bean.Power">
-        <id column="id" property="id"></id>
-        <result column="power" property="power"></result>
+             <id column="id" property="id"></id>
+            <result column="power" property="power"></result>
         </association>
     </resultMap>
-    <select id="findAllUser" resultMap="basicUser">
+
+    <sql id="key">
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                id,
+            </if>
+
+            <if test="name!=null">
+                name,
+            </if>
+
+            <if test="department!=null">
+                department,
+            </if>
+
+            <if test="password!=null">
+                password,
+            </if>
+
+            <if test="card!=null">
+                card,
+            </if>
+            <if test="userPower == null">
+                user_power,
+            </if>
+            <if test="userPower != null">
+                user_power,
+            </if>
+        </trim>
+    </sql>
+
+    <sql id="value">
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+
+            <if test="name!=null">
+                #{name},
+            </if>
+
+            <if test="department!=null">
+                #{department},
+            </if>
+
+            <if test="password!=null">
+                #{password},
+            </if>
+
+            <if test="card!=null">
+                #{card},
+            </if>
+            <if test="userPower == null">
+                '1',
+            </if>
+            <if test="userPower != null">
+                #{userPower.power},
+            </if>
+        </trim>
+    </sql>
+
+  <!--  <select id="findAllUser" resultMap="basicUser">
       select  * from user;
+    </select>-->
+    <!--根据id查询user-->
+    <select id="findByid" resultMap="basicUser" parameterType="java.lang.Integer">
+      select  * from user where id=#{id};
+    </select>
+<!--名字重复需要更改-->
+    <select id="findAllUser" resultMap="basicUser">
+      select u.*,p.* from  user u join power p on u.user_power = p.id
     </select>
 
     <select id="findAllCrad" resultType="Integer">
@@ -24,4 +93,9 @@
         select user.name from user where card = #{crad};
     </select>
 
+
+
+    <insert id="insertUser" parameterType="com.summary.zkhdsummary.bean.User">
+        insert into user(<include refid="key"/>) values(<include refid="value"/>);
+    </insert>
 </mapper>

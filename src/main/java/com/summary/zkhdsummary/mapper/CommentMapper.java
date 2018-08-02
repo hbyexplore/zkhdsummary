@@ -7,4 +7,5 @@ import org.apache.ibatis.annotations.Param;
 
 public interface CommentMapper {
 
+    List<Comment> findLogConut(Integer id);
 }

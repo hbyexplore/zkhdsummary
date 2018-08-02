@@ -9,4 +9,6 @@ public interface UserService {
    List<Integer> findAllCrad();
 
    String findUserByCrad(int crad);
+
+   Integer insterUser(User user);
 }

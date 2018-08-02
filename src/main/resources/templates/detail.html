@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
 	<meta charset="utf-8">
@@ -10,7 +11,7 @@
 	<link rel="stylesheet" href="res/layui/css/layui.css" th:href="@{/layui/css/layui.css}">
 	<link rel="stylesheet" href="res/css/global.css" th:href="@{/css/global.css}">
 	<script src="res/layui/layui.js" th:src="@{/layui/layui.js}"></script>
-	<!--<script src="js/jquery.js" th:src="@{js/jquery.js}"></script>-->
+	<script src="js/jquery.js" th:src="@{/js/jquery.js}"></script>
 	<style type="text/css" rel="stylesheet">
 		form {
 			margin: 0;
@@ -43,17 +44,17 @@
 <body>
 	<header id="header" th:replace="head::html"></header>
 	<!--<iframe src="head.html" scrolling="no" width="100%" height="65px"></iframe>-->
-	<div class="main layui-clear">
+	<div class="main layui-clear" style="margin-top: 65px">
 		<div class="wrap">
 			<div class="content detail">
 				<div class="fly-panel detail-box">
-					<h1>每日总结的标题
-						<small>胡立鹏</small>
-						<small>2018/7/30</small>
+					<h1 th:text="${log.getTitle()}">
+						<small th:text="${log.getUser().getName()}"></small>
+						<small th:text="${log.getDate()}"></small>
 					</h1>
 
 					<div class="detail-body photos" style="margin-bottom: 20px;">
-						<p>帖子内容</p>
+						<p th:text="${log.getLog()}"></p>
 					</div>
 				</div>
 				<div class="fly-panel detail-box" style="padding-top: 0;">
@@ -61,17 +62,23 @@
 					<ul class="jieda photos" id="jieda">
 						<li data-id="12" class="jieda-daan">
 							<div>
-								<span class="avatar">小</span>
+								<span class="avatar"></span>
 								<div>
-										<span style="font-size: 20px;margin-right: 15px;">小明</span>
-										<span>2017-7-30</span><br>
+									<span class="name" sec:authentication="name"></span>
+										<span th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd')}"></span><br>
 										<span>评论内容</span>
 								</div>								
-								<p></p>																
+								<p></p>
+                                <!--截取姓名的第一个字-->
+                                <script>
+                                    var name = $('.name').html().substring(0,1);
+
+                                    $('.avatar').html(name)
+                                </script>
 							</div>
 						</li>						
 					</ul>
-					<span id="toName">@ 压缩(楼主)</span>
+					<span id="toName" th:text="${log.getUser().getName()}"></span>
 					<div class="layui-form layui-form-pane">
 						<form action="">
 							<div class="layui-form-item layui-form-text">

@@ -4,6 +4,8 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -22,7 +24,6 @@ public class User implements Serializable {
 
     private Integer card;
 
-    private Power userPower; //权限默认为user
-
+    private Power UserPower;
 
 }

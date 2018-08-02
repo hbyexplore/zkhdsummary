@@ -5,6 +5,8 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,8 +22,9 @@ public class Log implements Serializable {
 
     private String title;
 
-    private Integer userid;
+    private User user;
 
     private String log;
+
 
 }

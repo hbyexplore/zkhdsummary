@@ -15,7 +15,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-
+    /**
+     * 查出所有的用户
+     * @return
+     */
     @Override
     public List<User> findAllUser() {
         List<User> users = userMapper.findAllUser();
@@ -30,5 +33,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public String findUserByCrad(int crad) {
         return userMapper.findUserByCrad(crad);
+    }
+
+    /**
+     * 将用户保存在数据库
+     * @param user
+     * @return
+     */
+    @Override
+    public Integer insterUser(User user) {
+
+        int i = userMapper.insertUser(user);
+        return i ;
     }
 }

@@ -104,6 +104,35 @@
 		#m65{
 			margin-top: 65px;
 		}
+
+		.nosign {
+			width: 150px;
+			height: 100%;
+			position: fixed;
+			left: 0;
+			top: 65px;
+			z-index: 100;
+			padding: 15px;
+			border: 1px solid #2F4056;
+		}
+		.title1{
+			font-size: 10px;
+			background-color: #009688;
+			padding: 5px 15px;
+			color: #ffffff;
+			text-align: center;
+		}
+		.nosign>ul>li{
+			font-size: 14px;
+			padding: 8px 15px;
+			border-bottom: 1px solid #2F4056;
+			border-left: 1px solid #2F4056;
+			border-right: 1px solid #2F4056;
+		}
+		.father{
+			position: relative;
+		}
+
 	</style>
 </head>
 
@@ -183,6 +212,13 @@
 			</div>
 		</div>
 		<a href="/summary/add" class="everyday" id="everdaySummary">每日总结</a>
+
+		<div class="nosign">
+			<h3 class="title1"> <span>[[${#dates.format(new java.util.Date().getTime(),"yyyy-MM-dd")}]]</span>未总结</h3>
+			<ul th:each="user : ${nameList}">
+				<li><span class="father" th:text="${user}">胡立鹏 </span></li>
+			</ul>
+		</div>
 		<span sec:authentication="name" id="userName" hidden="hidden"></span>
 
 		<!--获取到登录的名字-->

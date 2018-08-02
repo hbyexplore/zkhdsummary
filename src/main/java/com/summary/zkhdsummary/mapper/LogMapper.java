@@ -2,12 +2,10 @@ package com.summary.zkhdsummary.mapper;
 
 import com.summary.zkhdsummary.bean.Log;
 import com.summary.zkhdsummary.bean.LogBean;
-import com.summary.zkhdsummary.bean.LogExample;
+import org.apache.ibatis.annotations.Param;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface LogMapper {
        Log findLogById(Integer id);

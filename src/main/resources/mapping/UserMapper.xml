@@ -73,9 +73,6 @@
         </trim>
     </sql>
 
-  <!--  <select id="findAllUser" resultMap="basicUser">
-      select  * from user;
-    </select>-->
     <!--根据id查询user-->
     <select id="findByid" resultMap="basicUser" parameterType="java.lang.Integer">
       select  * from user where id=#{id};

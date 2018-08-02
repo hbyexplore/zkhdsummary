@@ -48,7 +48,6 @@ public class SummarySecurity extends WebSecurityConfigurerAdapter {
         List<User> allUser = userService.findAllUser();
 
         for(User user : allUser){
-
             auth.inMemoryAuthentication()
                     .withUser(user.getName()).password(user.getPassword()).roles(user.getUserPower().getPower());
 
@@ -64,7 +63,6 @@ public class SummarySecurity extends WebSecurityConfigurerAdapter {
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // return PasswordEncoderFactories.createDelegatingPasswordEncoder();
         return new BCryptPasswordEncoder();
     }
 }

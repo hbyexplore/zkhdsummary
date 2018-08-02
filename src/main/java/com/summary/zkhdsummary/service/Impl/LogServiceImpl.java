@@ -20,8 +20,6 @@ public class LogServiceImpl implements LogService {
     private LogMapper logMapper;
     @Autowired
     private UserMapper userMapper;
-    @Autowired
-    private CommentMapper commentMapper;
 
 /**
  * 搜索
@@ -42,6 +40,28 @@ public class LogServiceImpl implements LogService {
             }
         });
        return logBeans;
+    }
+/**
+ * 添加总结
+ * */
+    @Override
+    public void addSummary(String username, String logTitle, String logContent) {
+        //先根据用户名获取id
+        List<User> allUser = userMapper.findAllUser();
+        for (User user : allUser) {
+            String name = user.getName();
+            if (name.equals(username)){
+                //将id以及总结标题和内容存入log表
+                HashMap<String, Object> summaryMap = new HashMap<>();
+                summaryMap.put("userId",user.getId());
+                summaryMap.put("logTitle",logTitle);
+                summaryMap.put("logContent",logContent);
+                summaryMap.put("newTime",new Date());
+                logMapper.insertSummary(summaryMap);
+                break;
+            }
+        }
+
     }
 
     @Override

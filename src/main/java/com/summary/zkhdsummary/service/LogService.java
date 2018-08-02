@@ -16,4 +16,6 @@ public interface LogService {
     List<List<Log>> findSummary(List<User> listTime);
 
     List<LogBean> searchLog(String username, String userdate);
+
+    void addSummary(String username, String logTitle, String logContent);
 }

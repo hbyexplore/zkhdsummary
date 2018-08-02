@@ -13,4 +13,3 @@ spring:
         driver-class-name: com.mysql.jdbc.Driver
 mybatis:
     mapper-locations: classpath:mapping/*.xml  #映射文件路径
-#    type-aliases-package: com.summary.zkhdsummary.bean  #实体类路径

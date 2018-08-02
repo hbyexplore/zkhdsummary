@@ -2,4 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.summary.zkhdsummary.mapper.LogMapper" >
 
+    <resultMap id="findLog" type="com.summary.zkhdsummary.bean.Log">
+        <id column="id" property="id"></id>
+        <result column="date" property="date"></result>
+        <result column="log" property="log"></result>
+        <result column="hot" property="hot"></result>
+        <result column="title" property="title"></result>
+        <association property="user" javaType="com.summary.zkhdsummary.bean.User">
+            <result column="name" property="name"></result>
+        </association>
+    </resultMap>
+
+    <select id="findLogById" resultMap="findLog">
+          select l.log,l.date,l.hot,l.title,u.name from log l left join user u on l.userid = u.id where l.id=1
+    </select>
 </mapper>

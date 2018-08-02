@@ -20,7 +20,7 @@ public class Log implements Serializable {
 
     private String title;
 
-    private Integer userid;
+    private User user;
 
     private String log;
 

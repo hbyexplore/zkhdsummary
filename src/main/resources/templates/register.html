@@ -37,17 +37,17 @@
 					<div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
 						<div class="layui-tab-item layui-show">
 							<div class="layui-form layui-form-pane">
-								<form method="post">
+								<form method="post" th:action="@{/register}">
 									<div class="layui-form-item">
 										<label for="L_email" class="layui-form-label">用户名</label>
 										<div class="layui-input-inline">
-											<input type="text" id="userName" name="userName" placeholder="请输入用户名" required="" lay-verify="userName" class="layui-input"> </div>
+											<input type="text" id="userName" name="name" placeholder="请输入用户名" required="" lay-verify="userName" class="layui-input"> </div>
 									</div>
 
 									<div class="layui-form-item">
 										<label for="L_pass" class="layui-form-label">密码</label>
 										<div class="layui-input-inline">
-											<input type="password" id="L_pass" placeholder="请输入密码" name="pass" required="" lay-verify="required" autocomplete="off"
+											<input type="password" id="L_pass" placeholder="请输入密码" name="password" required="" lay-verify="required" autocomplete="off"
 											    class="layui-input"> </div>
 									</div>
 									<div class="layui-form-item">
@@ -60,7 +60,7 @@
 									<div class="layui-form-item">
 										<label for="L_username" class="layui-form-label">工号</label>
 										<div class="layui-input-inline">
-											<input type="number" id="L_username" placeholder="请输入工号" name="username" required="" lay-verify="required" autocomplete="off"
+											<input type="number" id="L_username" placeholder="请输入工号" name="card" required="" lay-verify="required" autocomplete="off"
 											    class="layui-input"> </div>
 									</div>
 

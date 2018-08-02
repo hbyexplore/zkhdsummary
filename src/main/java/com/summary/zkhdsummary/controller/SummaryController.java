@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+
 @Controller
 public class SummaryController {
     @Autowired
@@ -41,25 +42,44 @@ public class SummaryController {
      */
     @RequestMapping(value = {"/","/index"})
     public String index(Model model, HttpServletRequest httpServletRequest,
+                        @RequestParam(value = "username", required = false, defaultValue = "") String username,
+                        @RequestParam(value = "userdate", required = false, defaultValue = "") String userdate,
                         @RequestParam(required = false, value = "currement", defaultValue = "1") int currement,
-                        @RequestParam(required = false, value = "pageSize", defaultValue = "5") int pageSize) {
-        //获取到所有的user记录
-       // PageBean<LogBean> list = logService.findList(currement,pageSize);
-        PageInfo<LogBean> objectPageInfo = logService.findList(currement,pageSize);
-
-        //定时器
-        List<String> objects = scheduTask.users;
-        model.addAttribute("users", objectPageInfo.getList());
-        model.addAttribute("page", objectPageInfo);
+                        @RequestParam(required = false, value = "pageSize", defaultValue = "10") int pageSize) {
         //如果request域中有查询到的数据就将数据存入model 没有就不存入还用原来查出的默认数据
         if (httpServletRequest.getAttribute("searchUsers") != null) {
             model.addAttribute("users", httpServletRequest.getAttribute("searchUsers"));
+            return "index";
+        }else {
+            //获取到所有的user记录
+            PageBean<LogBean> pageBean = logService.searchLog(username,userdate,currement,pageSize);
+            List<LogBean> items = pageBean.getItems();
+            PageInfo pageInfo = new PageInfo(items);
+
+            model.addAttribute("pageBean",pageBean);
+            model.addAttribute("users",items);
+            //获得当前页
+            model.addAttribute("pageNum", pageInfo.getPageNum());
+            //获得一页显示的条数
+            model.addAttribute("pageSize", pageSize);
+            //是否是第一页
+            model.addAttribute("isFirstPage", pageInfo.isIsFirstPage());
+            //获得总页数
+            model.addAttribute("totalPages", pageInfo.getPages());
+            //是否是最后一页
+            model.addAttribute("isLastPage", pageInfo.isIsLastPage());
+
+            model.addAttribute("username", username);
+
+            model.addAttribute("userdate", userdate);
         }
+        //定时器
+        List<String> objects = scheduTask.users;
+
         //定时器
         if(objects != null && objects.size() != 0){
             model.addAttribute("nameList",objects);
         }
-
         return "index";
     }
     /**
@@ -68,12 +88,32 @@ public class SummaryController {
      * @return index
      */
     @GetMapping(value = {"/summary/search"})
-    public String searchindex(@RequestParam(value = "username", required = false, defaultValue = "") String username, @RequestParam(value = "userdate", required = false, defaultValue = "") String userdate, Model model, HttpServletRequest
+    public String searchindex(@RequestParam(value = "username", required = false, defaultValue = "") String username, @RequestParam(value = "userdate", required = false, defaultValue = "") String userdate,
+                              @RequestParam(required = false, value = "currement", defaultValue = "1") int currement,
+                              @RequestParam(required = false, value = "pageSize", defaultValue = "10") int pageSize,Model model, HttpServletRequest
             httpServletRequest) {
-        List<LogBean> logBeans = logService.searchLog(username, userdate);
+        //查出需要分页的pageBean
+        PageBean<LogBean> pageBean = logService.searchLog(username, userdate,currement,pageSize);
+        List<LogBean> logBeans = pageBean.getItems();
+        PageInfo pageInfo = new PageInfo(logBeans);
         //向request域中添加查询到的数据
         if(logBeans!=null){
             httpServletRequest.setAttribute("searchUsers",logBeans);
+            model.addAttribute("pageBean",pageBean);
+            //获得当前页
+            model.addAttribute("pageNum", pageInfo.getPageNum());
+            //获得一页显示的条数
+            model.addAttribute("pageSize", pageSize);
+            //是否是第一页
+            model.addAttribute("isFirstPage", pageInfo.isIsFirstPage());
+            //获得总页数
+            model.addAttribute("totalPages", pageInfo.getPages());
+            //是否是最后一页
+            model.addAttribute("isLastPage", pageInfo.isIsLastPage());
+
+            model.addAttribute("username", username);
+
+            model.addAttribute("userdate", userdate);
         }
         //如果没查到数据没空就返回首页
         if (logBeans.size() == 0) {

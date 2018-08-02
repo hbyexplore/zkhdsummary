@@ -2,7 +2,6 @@ package com.summary.zkhdsummary.service.Impl;
 
 import com.github.pagehelper.PageHelper;
 
-import com.github.pagehelper.PageInfo;
 import com.summary.zkhdsummary.bean.Log;
 import com.summary.zkhdsummary.config.PageBean;
 import com.summary.zkhdsummary.bean.LogBean;
@@ -26,7 +25,8 @@ public class LogServiceImpl implements LogService {
  * 搜索
  * */
     @Override
-    public List<LogBean> searchLog(String username, String userdate) {
+    public PageBean<LogBean> searchLog(String username, String userdate, int currement, int pageSize) {
+        PageHelper.startPage(currement,pageSize);
         List<LogBean> logBeans = logMapper.searchLog(username, userdate);
         for (LogBean logBean : logBeans) {
             Integer lid = logBean.getLid();
@@ -34,13 +34,17 @@ public class LogServiceImpl implements LogService {
             Integer listById = logMapper.findListById(lid);
             logBean.setCommentCount(listById);
         }
-        Collections.sort(logBeans, new Comparator<LogBean>() {
+       /* Collections.sort(logBeans, new Comparator<LogBean>() {
             @Override
             public int compare(LogBean o1, LogBean o2) {
                 return (int) (o2.getLid() - o1.getLid());
             }
-        });
-       return logBeans;
+        });*/
+        //获得总条数
+        int searchLogCount=logMapper.getSearchLogCount(username,userdate);
+        PageBean<LogBean> pageBean = new PageBean<>(currement,pageSize,searchLogCount);
+        pageBean.setItems(logBeans);
+        return pageBean;
     }
 /**
  * 添加总结
@@ -87,7 +91,6 @@ public class LogServiceImpl implements LogService {
         //根据id查出每条日志的评论
         for(int i = 0; i<logs.size(); i++){
             LogBean logBean = logMapper.findList(logs.get(i).getId());
-
             //添加进集合
             logBeans.add(logBean);
         }
@@ -118,27 +121,15 @@ public class LogServiceImpl implements LogService {
         return logBeans;
     }
 
-    @Override
-    public PageInfo<LogBean> findList(int currement, int pageSize) {
-        //查询出log中所有的id
-        List<Integer> summaryById = logMapper.findSummaryById();
-        ArrayList<LogBean> logBeans = new ArrayList<>();
-        for (Integer integer : summaryById) {
-            //查询出页面展示需要的参数
-            PageHelper.startPage(currement,pageSize);
-           LogBean logBean = logMapper.findList(integer);
-           logBeans.add(logBean);
-        }
-        Collections.sort(logBeans, new Comparator<LogBean>() {
-            @Override
-            public int compare(LogBean o1, LogBean o2) {
-                return (int) (o2.getLid() - o1.getLid());
-            }
-        });
-        PageInfo<LogBean> objectPageInfo = new PageInfo<>(logBeans);
-        objectPageInfo.setPageSize(pageSize);
-        return objectPageInfo;
-    }
+    /*@Override
+    public PageBean<LogBean> findList(int currement, int pageSize) {
+
+        PageHelper.startPage(currement,pageSize);
+        List<LogBean> list = logMapper.findAllList();
+        PageBean<LogBean> pageBean = new PageBean<>(currement,pageSize,32);
+        pageBean.setItems(list);
+        return pageBean;
+    }*/
 
     @Override
     public List findTime(List<User> list) {

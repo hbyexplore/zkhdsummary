@@ -31,4 +31,8 @@ public interface LogMapper {
        List<Log> findAllByHot();
 
        List<Log> finAll();
+
+       List<LogBean>findAllList();
+
+       int getSearchLogCount(@Param("username")String username, @Param("userdate")String userdate);
 }

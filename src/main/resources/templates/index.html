@@ -10,10 +10,9 @@
 	<meta name="description" content="">
 	<!--th:href="@{/layui/css/layui.css}  该路径最前面不加/只替换二级目录 加/替换一级目录-->
 	<link rel="stylesheet" href="static/layui/css/layui.css" th:href="@{/layui/css/layui.css}">
-
 	<link rel="stylesheet" href="static/layui/css/bootstrap.min.css" th:href="@{/layui/css/bootstrap.min.css}">
 	<link rel="stylesheet" href="static/css/global.css" th:href="@{/css/global.css}">
-	<script src="static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
+	<!--<script src="static/layui/layui.js" th:src="@{/layui/layui.js}"></script>-->
 	<style scoped>
 		html,body{
 			position: relative;
@@ -176,7 +175,7 @@
 							<span>
 								<a href="" th:text="${user.getUsername()}"></a>
 							</span>
-							<span th:text="${#dates.format(user.getLogDate(),'yyyy-MM-dd HH:mm:ss')}"></span>
+							<span th:text="${#dates.format(user.getLogDate(),'yyyy-MM-dd')}"></span>
 							<span class="fly-list-hint">
 								<i class="iconfont" title="评论">&#xe60c;</i>[[${user.getCommentCount()}]]
 							</span>
@@ -187,28 +186,28 @@
 				<!-- <div class="fly-none">并无相关数据</div> -->
 
 			<div style="text-align: center">
-                                    <nav>
-                                        <ul class="pagination">
-                                            <li>
-                                                <a th:if="${not page.isFirstPage}" th:href="@{'/summary/personal?currement='+(${page.getPageNum()-1})+'&pageSize='+${page.getPageSize()}}">上一页</a>
-                                                <a th:if="${page.isFirstPage}" href="javascript:void(0);">上一页</a>
-                                            </li>
-                                            <li th:if="${page.pageNum -3 >=1}" ><a th:href="@{'/summary/personal?currement='+(${page.getPageNum()-3})+'&pageSize='+${page.getPageSize()}}" th:text="${page.pageNum -3}" >1</a></li>
-                                            <li th:if="${page.pageNum -2 >=1}" ><a th:href="@{'/summary/personal?currement='+(${page.getPageNum()-2})+'&pageSize='+${page.getPageSize()}}" th:text="${page.pageNum  -2}">1</a></li>
-                                            <li th:if="${page.pageNum -1 >=1}" ><a th:href="@{'/summary/personal?currement='+(${page.getPageNum()-1})+'&pageSize='+${page.getPageSize()}}" th:text="${page.pageNum  -1}">1</a></li>
-                                            <li class="active"><a href="#" th:text="${page.pageNum}" >1</a></li>
-                                            <li th:if="${page.pageNum+1 <=page.getTotal()}" ><a th:href="@{'/summary/personal?currement='+(${page.getPageNum()+1})+'&pageSize='+${page.getPageSize()}}" th:text="${page.pageNum +1}" >1</a></li>
-                                            <li th:if="${page.pageNum+2 <=page.getTotal()}" ><a th:href="@{'/summary/personal?currement='+(${page.getPageNum()+2})+'&pageSize='+${page.getPageSize()}}" th:text="${page.pageNum +2}">1</a></li>
-                                            <li th:if="${page.pageNum+3 <=page.getTotal()}" ><a th:href="@{'/summary/personal?currement='+(${page.getPageNum()+3})+'&pageSize='+${page.getPageSize()}}" th:text="${page.pageNum +3}">1</a></li>
+				<nav>
+					<ul class="pagination">
+						<li>
+							<a th:if="${not isFirstPage}" th:href="@{'/summary/search?username='+(${username})+'&userdate='+(${userdate})+'&currement='+(${pageBean.getCurrentPage()-1})+'&pageSize='+${pageSize}}">上一页</a>
+							<a th:if="${isFirstPage}" href="javascript:void(0);">上一页</a>
+						</li>
+						<!--(${pageBean.getPageSize()})-->
+						<li th:if="${pageNum -3 >=1}" ><a th:href="@{'/summary/search?username='+(${username})+'&userdate='+(${userdate})+'&currement='+(${pageBean.getCurrentPage()-3})+'&pageSize='+${pageSize}}" th:text="${pageNum -3}" >1</a></li>
+						<li th:if="${pageNum -2 >=1}" ><a th:href="@{'/summary/search?username='+(${username})+'&userdate='+(${userdate})+'&currement='+(${pageBean.getCurrentPage()-2})+'&pageSize='+${pageSize}}" th:text="${pageNum  -2}">1</a></li>
+						<li th:if="${pageNum -1 >=1}" ><a th:href="@{'/summary/search?username='+(${username})+'&userdate='+(${userdate})+'&currement='+(${pageBean.getCurrentPage()-1})+'&pageSize='+${pageSize}}" th:text="${pageNum  -1}">1</a></li>
+						<li class="active"><a href="#" th:text="${pageNum}" >1</a></li>
+						<li th:if="${pageNum+1 <=totalPages}" ><a th:href="@{'/summary/search?username='+(${username})+'&userdate='+(${userdate})+'&currement='+(${pageBean.getCurrentPage()+1})+'&pageSize='+${pageSize}}" th:text="${pageNum +1}" >1</a></li>
+						<li th:if="${pageNum+2 <=totalPages}" ><a th:href="@{'/summary/search?username='+(${username})+'&userdate='+(${userdate})+'&currement='+(${pageBean.getCurrentPage()+2})+'&pageSize='+${pageSize}}" th:text="${pageNum +2}">1</a></li>
+						<li th:if="${pageNum+3 <=totalPages}" ><a th:href="@{'/summary/search?username='+(${username})+'&userdate='+(${userdate})+'&currement='+(${pageBean.getCurrentPage()+3})+'&pageSize='+${pageSize}}" th:text="${pageNum +3}">1</a></li>
 
-                                            <li>
-                                                <a th:if="${not page.isLastPage}" th:href="@{'/summary/personal?currement='+(${page.getPageNum()+1})+'&pageSize='+${page.getPageSize()}}">下一页</a>
-                                                <a th:if="${page.isLastPage}" href="javascript:void(0);">下一页</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-
+						<li>
+							<a th:if="${not isLastPage}" th:href="@{'/summary/search?username='+(${username})+'&userdate='+(${userdate})+'&currement='+(${pageBean.getCurrentPage()+1})+'&pageSize='+${pageSize}}">下一页</a>
+							<a th:if="${isLastPage}" href="javascript:void(0);">下一页</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
 			</div>
 		</div>
 		<a href="/summary/add" class="everyday" id="everdaySummary">每日总结</a>

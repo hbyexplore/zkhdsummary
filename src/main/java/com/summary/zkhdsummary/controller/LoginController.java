@@ -30,8 +30,14 @@ public class LoginController {
      */
     @RequestMapping("/register")
     public String register(User user){
-
+        //判断是否提交数据
         if(user.getName() != null){
+            //根据名字查重复
+            User userIdByName = userService.findUserIdByName(user.getName());
+
+            if (userIdByName.getId()!=null){
+                return "register";
+            }
 
             userService.insterUser(user);
 

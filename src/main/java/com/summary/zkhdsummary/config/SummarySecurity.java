@@ -35,6 +35,7 @@ public class SummarySecurity extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/loginPage");
         http
                 .logout().logoutSuccessUrl("/loginPage");
+
     }
 
     /**

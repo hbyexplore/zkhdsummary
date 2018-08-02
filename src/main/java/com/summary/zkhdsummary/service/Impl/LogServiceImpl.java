@@ -65,6 +65,59 @@ public class LogServiceImpl implements LogService {
 
     }
 
+    /**
+     * 根据热度查询出前8条
+     * @return
+     */
+    @Override
+    public List<Log> findAllByHot() {
+        return logMapper.findAllByHot();
+    }
+
+    /**
+     * 查出评论最多的前8条
+     * @return
+     */
+    @Override
+    public List<LogBean> findAllByCommentTotal() {
+
+        List<LogBean> logBeans = new ArrayList<>();
+        //查出所有日志
+        List<Log> logs = logMapper.finAll();
+        //根据id查出每条日志的评论
+        for(int i = 0; i<logs.size(); i++){
+            LogBean logBean = logMapper.findList(logs.get(i).getId());
+
+            //添加进集合
+            logBeans.add(logBean);
+        }
+
+        //通过评论数排序,并截取前8条
+        Collections.sort(logBeans, new Comparator<LogBean>() {
+            @Override
+            public int compare(LogBean o1, LogBean o2) {
+                if(o1.getCommentCount() < o2.getCommentCount()){
+                    return 1;
+                }
+                if(o1.getCommentCount() == o2.getCommentCount()){
+                    return 0;
+                }
+                return -1;
+            }
+        });
+
+        //截取前8条
+        while (true){
+            if(logBeans.size() > 8){
+                logBeans.remove(8);
+            }else {
+                break;
+            }
+        }
+
+        return logBeans;
+    }
+
     @Override
     public PageInfo<LogBean> findList(int currement, int pageSize) {
         //查询出log中所有的id

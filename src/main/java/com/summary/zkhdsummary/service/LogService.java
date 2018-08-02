@@ -24,4 +24,8 @@ public interface LogService {
     List<LogBean> searchLog(String username, String userdate);
 
     void addSummary(String username, String logTitle, String logContent);
+
+    List<Log> findAllByHot();
+
+    List<LogBean> findAllByCommentTotal();
 }

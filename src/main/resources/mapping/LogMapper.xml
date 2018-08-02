@@ -76,4 +76,14 @@
         inner join log l on u.id = l.userid
         where l.date = #{date};
 </select>
+
+    <!--根据热度查询-->
+    <select id="findAllByHot" resultType="com.summary.zkhdsummary.bean.Log">
+        select * from log order by hot desc limit 8
+    </select>
+
+    <!--查出所有的log-->
+    <select id="finAll" resultType="com.summary.zkhdsummary.bean.Log">
+        select * from log;
+    </select>
 </mapper>

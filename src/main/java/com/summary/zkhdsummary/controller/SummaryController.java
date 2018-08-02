@@ -103,19 +103,26 @@ public class SummaryController {
      */
     @RequestMapping("/summary/detail/{id}")
     public String detail(@PathVariable() int id, Model model){
+        //根据id查出日志
         Log log = logService.findLogById(id);
 
         log.setId(id);
 
         model.addAttribute("log",log);
-
+        //根据日志id查出评论
         List<Detail> detailById = commentService.findDetailById(id);
 
         model.addAttribute("detail",detailById);
 
+        //根据热度查出前8条
+        List<Log> LogByHot = logService.findAllByHot();
 
-        //System.out.println(log);
+        model.addAttribute("LogByHot",LogByHot);
 
+        //查出评论数最多的前8条
+        List<LogBean> LogBeans = logService.findAllByCommentTotal();
+
+        model.addAttribute("LogBeans",LogBeans);
         return "detail";
     }
 

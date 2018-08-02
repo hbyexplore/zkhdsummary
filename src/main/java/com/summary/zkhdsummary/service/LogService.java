@@ -1,7 +1,6 @@
 package com.summary.zkhdsummary.service;
 
 import com.summary.zkhdsummary.bean.Log;
-import org.springframework.ui.Model;
 import com.summary.zkhdsummary.bean.LogBean;
 import com.summary.zkhdsummary.bean.User;
 import com.summary.zkhdsummary.config.PageBean;
@@ -24,4 +23,8 @@ public interface LogService {
     List<LogBean> searchLog(String username, String userdate);
 
     void addSummary(String username, String logTitle, String logContent);
+
+    List<Log> findAllByHot();
+
+    List<LogBean> findAllByCommentTotal();
 }

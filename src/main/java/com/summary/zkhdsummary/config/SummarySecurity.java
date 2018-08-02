@@ -52,6 +52,7 @@ public class SummarySecurity extends WebSecurityConfigurerAdapter {
             auth.inMemoryAuthentication()
                     .withUser(user.getName()).password(user.getPassword()).roles(user.getUserPower().getPower());
 
+
         }
 
     }

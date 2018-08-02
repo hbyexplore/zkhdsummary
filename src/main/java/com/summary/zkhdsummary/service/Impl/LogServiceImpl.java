@@ -157,7 +157,6 @@ public class LogServiceImpl implements LogService {
      *
      *
      * */
-    private LogMapper logMapper;
 
     /**
      * 根据id查log

@@ -28,8 +28,6 @@ public class SummaryController {
     @Autowired
     private LogService logService;
 
-    @Autowired
-    private LogService logService;
 
     /**
      * 访问首页 列表展示

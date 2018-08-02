@@ -12,18 +12,14 @@
             <result column="name" property="name"></result>
         </association>
     </resultMap>
-   <sql id="selectTime" databaseId="log">
-       select now();
-   </sql>
     <select id="findLogById" resultMap="findLog">
           select l.log,l.date,l.hot,l.title,u.name from log l left join user u on l.userid = u.id where l.id=1
     </select>
-
     <!--查询出log表的所有id-->
     <select id="findSummaryById" resultType="java.lang.Integer">
            select id from log;
     </select>
-<!--根据id查询出所有首页要展示的数据-->
+    <!--根据id查询出所有首页要展示的数据-->
     <select id="findList" resultType="com.summary.zkhdsummary.bean.LogBean" parameterType="int" >
           select u.id uid,u.name username,l.title ,l.date logDate,l.log logContent,l.id lid,COUNT(c.id) commentCount  from log l
             join user u on l.userid=u.id
@@ -55,4 +51,20 @@
     <insert id="insertSummary" parameterType="java.util.HashMap">
         INSERT INTO log (date,log,hot,title,userid) VALUES (#{newTime},#{logContent},0,#{logTitle},#{userId});
     </insert>
+    <!--根据user id 查出所有的 log  /*select l.date,l.title,l.hot,l.log from log l
+      inner join  user u on l.userid = u.id
+      where u.id = #{id}*/-->
+    <select id="findAllLogById" resultType="com.summary.zkhdsummary.bean.Log" parameterType="java.lang.Integer">
+      select * from  log where userid=#{id}
+    </select>
+    <!--根据user id 查出所有的log条数-->
+    <select id="countLog" resultType="int" parameterType="java.lang.Integer">
+      select count(*) from log  where userid=#{userid};
+    </select>
+    <!--查出当天写过总结的user card-->
+    <select id="findUserByDate" resultType="java.lang.Integer" parameterType="string">
+        select distinct u.card from user u
+        inner join log l on u.id = l.userid
+        where l.date = #{date};
+</select>
 </mapper>

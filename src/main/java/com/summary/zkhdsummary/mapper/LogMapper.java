@@ -16,4 +16,7 @@ public interface LogMapper {
        List<Integer> findSummaryById();
        List<LogBean> searchLog(@Param("username") String username,@Param("userdate") String userdate);
        void insertSummary(HashMap<String,Object> summaryMap);
+       List<Log>findAllLogById(Integer id);
+       int countLog(Integer id);
+       List<Integer> findUserByDate(String date);
 }

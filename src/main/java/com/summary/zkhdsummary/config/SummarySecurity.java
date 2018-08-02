@@ -46,14 +46,10 @@ public class SummarySecurity extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
         List<User> allUser = userService.findAllUser();
-
         for(User user : allUser){
             auth.inMemoryAuthentication()
                     .withUser(user.getName()).password(user.getPassword()).roles(user.getUserPower().getPower());
-
-
         }
-
     }
 
     /**
@@ -65,4 +61,5 @@ public class SummarySecurity extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }

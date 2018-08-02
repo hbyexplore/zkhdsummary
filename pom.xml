@@ -48,10 +48,10 @@
         </dependency>
 
         <!--安全框架,用来简化登录注册功能-->
-      <!-- <dependency>
+       <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

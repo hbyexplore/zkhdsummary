@@ -4,6 +4,7 @@ package com.summary.zkhdsummary.controller;
 import com.github.pagehelper.PageInfo;
 import com.summary.zkhdsummary.bean.Log;
 import com.summary.zkhdsummary.config.PageBean;
+import com.summary.zkhdsummary.config.SummarySecurity;
 import com.summary.zkhdsummary.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.summary.zkhdsummary.bean.Log;
@@ -23,10 +24,6 @@ import java.util.List;
 
 @Controller
 public class SummaryController {
-    @Autowired
-    private LogService logService;
-
-
     @Autowired
     private LogService logService;
     @Autowired
@@ -106,19 +103,15 @@ public class SummaryController {
      * 跳转到个人中心页面,展示出该用户所有的总结
      * @return
      */
-    @RequestMapping("/summary/persona")
-    public String personal(Model model,HttpServletRequest request){
-        //获取登录用户的名称
-        String name = request.getParameter("id");
-        String currement = request.getParameter("currement");
-        String pageSize = request.getParameter("pageSize");
-        //将字符串转为基本数据类型
-        Integer id = Integer.parseInt(name);
-        Integer currement1 = Integer.parseInt(currement);
-        Integer pageSize1 = Integer.parseInt(pageSize);
+    @RequestMapping("/summary/personal/{username}")
+    public String personal(Model model,HttpServletRequest request,
+                           @PathVariable String username,
+                           @RequestParam(required = false, value = "currement", defaultValue = "") int currement,
+                           @RequestParam(required = false, value = "pageSize", defaultValue = "") int pageSize
+    ){
         //根据名称查询出该用户所有相关的评论
         //将信息封装到一个list集合中
-        PageBean<Log> pageBean = logService.findLogById(id,currement1,pageSize1);
+        PageBean<Log> pageBean = logService.findLogById(username,currement,pageSize);
         List<Log> logList = pageBean.getItems();
         PageInfo pageInfo = new PageInfo(logList);
         System.out.println(logList);

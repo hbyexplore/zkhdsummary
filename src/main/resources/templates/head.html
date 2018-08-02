@@ -71,14 +71,19 @@
 			<div class="nav-user">
 				<!--登录后-->
 				<div class="loginend" sec:authorize="isAuthenticated()">
-                    <a class="avataraa" href="personal.html" th:href="@{'/summary/persona?id='+2+'&currement='+1+'&pageSize='+1}" target="_parent">
+					<!--?id='+2+'&currement='+1+'&pageSize='+1-->
+                    <a class="avataraa" href="#"target="_parent" id="everdaySummary">
                         <span class="avatar"></span>
-						<span style="color: #fff" sec:authentication="name" class="name"></span>
+						<span style="color: #fff" sec:authentication="name" class="name" id="userName"></span>
 					</a>
+
                     <!--截取姓名的第一个字-->
                     <script>
-                        var name = $('.name').html().substring(0,1);
+                        var name = $('#userName').html();
+                        $('#everdaySummary').attr("href","/summary/personal/"+name);
 
+
+                        var name = $('.name').html().substring(0,1);
                         $('.avatar').html(name)
                     </script>
 					<form method="post" th:action="@{/logout}" class="nav" >

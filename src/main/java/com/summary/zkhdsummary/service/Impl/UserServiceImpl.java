@@ -25,6 +25,16 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
+    @Override
+    public List<Integer> findAllCrad() {
+        return userMapper.findAllCrad();
+    }
+
+    @Override
+    public String findUserByCrad(int crad) {
+        return userMapper.findUserByCrad(crad);
+    }
+
     /**
      * 将用户保存在数据库
      * @param user

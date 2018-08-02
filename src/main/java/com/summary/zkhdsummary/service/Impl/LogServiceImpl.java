@@ -202,7 +202,7 @@ public class LogServiceImpl implements LogService {
     public PageBean<Log> findLogById(Integer id,int currement,int pageSize) {
         PageHelper.startPage(currement,pageSize);
         //查询全部内容
-        List<Log> logList = logMapper.findLogById(id);
+        List<Log> logList = logMapper.findAllLogById(id);
         //查询总条数
         int countLog = logMapper.countLog(id);
         PageBean<Log> pageBean = new PageBean<>(currement,pageSize,countLog);

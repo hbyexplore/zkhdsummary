@@ -73,9 +73,6 @@
         </trim>
     </sql>
 
-  <!--  <select id="findAllUser" resultMap="basicUser">
-      select  * from user;
-    </select>-->
     <!--根据id查询user-->
     <select id="findByid" resultMap="basicUser" parameterType="java.lang.Integer">
       select  * from user where id=#{id};
@@ -84,6 +81,15 @@
     <select id="findAllUser" resultMap="basicUser">
       select u.*,p.* from  user u join power p on u.user_power = p.id
     </select>
+
+    <select id="findAllCrad" resultType="Integer">
+        select user.card from user;
+    </select>
+
+    <select id="findUserByCrad" parameterType="int" resultType="String">
+        select user.name from user where card = #{crad};
+    </select>
+
 
 
     <insert id="insertUser" parameterType="com.summary.zkhdsummary.bean.User">

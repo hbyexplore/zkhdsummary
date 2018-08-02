@@ -71,7 +71,7 @@
 			<div class="nav-user">
 				<!--登录后-->
 				<div class="loginend" sec:authorize="isAuthenticated()">
-					<a class="avataraa" href="summary/persona" target="_parent">
+                    <a class="avataraa" href="personal.html" th:href="@{'/summary/persona?id='+2+'&currement='+1+'&pageSize='+1}" target="_parent">
                         <span class="avatar"></span>
 						<span style="color: #fff" sec:authentication="name" class="name"></span>
 					</a>

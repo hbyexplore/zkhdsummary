@@ -14,4 +14,7 @@ public interface UserMapper {
 
     User findUserIdByName(String name);
 
+    List<Integer> findAllCrad();
+    //根据crad查询出用户的名称
+    String findUserByCrad(int crad);
 }

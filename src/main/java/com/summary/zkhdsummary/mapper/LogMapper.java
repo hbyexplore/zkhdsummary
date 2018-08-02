@@ -5,6 +5,7 @@ import com.summary.zkhdsummary.bean.LogBean;
 import com.summary.zkhdsummary.bean.LogExample;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -23,4 +24,6 @@ public interface LogMapper {
          List<LogBean> searchLog(@Param("username") String username,@Param("userdate") String userdate);
 
          void update2Hot(Integer id);
+
+    void insertSummary(HashMap<String,Object> summaryMap);
 }

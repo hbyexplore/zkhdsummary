@@ -24,9 +24,6 @@
           select l.log,l.date,l.hot,l.title,u.name from log l left join user u on l.userid = u.id where l.id = #{id};
     </select>
 
-    <!--<resultMap id="logbean" type="com.summary.zkhdsummary.bean.LogBean">
-        <id column="id" property=""
-    </resultMap>-->
     <!--查询出log表的所有id-->
     <select id="findSummaryById" resultType="java.lang.Integer">
            select id from log;
@@ -59,4 +56,8 @@
             join comment c on l.id=c.log_id
             WHERE l.id=#{id};
     </select>
+    <!--插入总结-->
+    <insert id="insertSummary" parameterType="java.util.HashMap">
+        INSERT INTO log (date,log,hot,title,userid) VALUES (#{newTime},#{logContent},0,#{logTitle},#{userId});
+    </insert>
 </mapper>

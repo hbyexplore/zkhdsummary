@@ -13,8 +13,15 @@
         </association>
     </resultMap>
 
-    <select id="findLogById" resultMap="findLog">
-          select l.log,l.date,l.hot,l.title,u.name from log l left join user u on l.userid = u.id where l.id=1
+    <!--热度+1-->
+
+    <update id="update2Hot" parameterType="int">
+        update log set hot = hot+1 where id = #{id};
+    </update>
+
+    <!--根据日志id查出日志详情-->
+    <select id="findLogById" resultMap="findLog" parameterType="int">
+          select l.log,l.date,l.hot,l.title,u.name from log l left join user u on l.userid = u.id where l.id = #{id};
     </select>
 
     <!--<resultMap id="logbean" type="com.summary.zkhdsummary.bean.LogBean">

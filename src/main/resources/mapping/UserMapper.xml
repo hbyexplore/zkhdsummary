@@ -89,4 +89,9 @@
     <insert id="insertUser" parameterType="com.summary.zkhdsummary.bean.User">
         insert into user(<include refid="key"/>) values(<include refid="value"/>);
     </insert>
+
+    <!--根据名字查id-->
+    <select id="findUserIdByName" resultType="com.summary.zkhdsummary.bean.User" parameterType="string">
+        select id from user where name = #{name}
+    </select>
 </mapper>

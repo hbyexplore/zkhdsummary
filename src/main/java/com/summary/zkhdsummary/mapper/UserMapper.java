@@ -12,4 +12,6 @@ public interface UserMapper {
 
     User findByid(Integer userid);
 
+    User findUserIdByName(String name);
+
 }

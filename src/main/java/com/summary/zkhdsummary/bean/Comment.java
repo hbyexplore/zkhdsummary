@@ -16,9 +16,9 @@ public class Comment implements Serializable {
 
     private Date date;
 
-    private Integer logId;
+    private Log log;
 
-    private Integer userId;
+    private User user;
 
     private String comment;
 

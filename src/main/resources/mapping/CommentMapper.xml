@@ -1,7 +1,66 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.summary.zkhdsummary.mapper.CommentMapper" >
+
+
+
+    <sql id="key">
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                id,
+            </if>
+
+            <if test="comment!=null">
+                comment,
+            </if>
+
+            <if test="date!=null">
+                date,
+            </if>
+
+            <if test="log!=null">
+                log_id,
+            </if>
+
+            <if test="user!=null">
+                user_id,
+            </if>
+        </trim>
+    </sql>
+
+    <sql id="value">
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+
+            <if test="comment!=null">
+                #{comment},
+            </if>
+
+            <if test="date!=null">
+                #{date},
+            </if>
+
+            <if test="log!=null">
+                #{log.id},
+            </if>
+
+            <if test="user!=null">
+               #{user.id},
+            </if>
+        </trim>
+    </sql>
+
       <select id="findLogConut" resultType="com.summary.zkhdsummary.bean.Comment" parameterType="java.lang.Integer">
           select * from  comment where log_id=#{log_id};
       </select>
+
+        <select id="findDetailById" resultType="com.summary.zkhdsummary.bean.Detail" parameterType="int">
+          select c.comment,c.date,u.name from comment c left join log l on c.log_id = l.id left join user u on c.user_id = u.id where l.id = #{id}
+        </select>
+
+        <insert id="insertComment" parameterType="com.summary.zkhdsummary.bean.Comment">
+            insert into comment(<include refid="key"/>) values(<include refid="value"/>);
+        </insert>
 </mapper>

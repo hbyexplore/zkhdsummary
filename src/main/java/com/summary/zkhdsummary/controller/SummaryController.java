@@ -1,13 +1,11 @@
 package com.summary.zkhdsummary.controller;
 
 
-import com.summary.zkhdsummary.bean.Log;
+import com.summary.zkhdsummary.bean.*;
+import com.summary.zkhdsummary.service.CommentService;
 import com.summary.zkhdsummary.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.summary.zkhdsummary.bean.Comment;
 import com.summary.zkhdsummary.bean.Log;
-import com.summary.zkhdsummary.bean.LogBean;
-import com.summary.zkhdsummary.bean.User;
 import com.summary.zkhdsummary.service.LogService;
 
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -27,6 +25,9 @@ import java.util.List;
 public class SummaryController {
     @Autowired
     private LogService logService;
+
+    @Autowired
+    private CommentService commentService;
 
 
     /**
@@ -73,10 +74,29 @@ public class SummaryController {
 
         Log log = logService.findLogById(id);
 
+        log.setId(id);
+
         model.addAttribute("log",log);
+
+        List<Detail> detailById = commentService.findDetailById(id);
+
+        model.addAttribute("detail",detailById);
+
 
         //System.out.println(log);
 
         return "detail";
+    }
+
+    /**
+     * 提交评论 然后跳转回详情页
+     * @return
+     */
+    @RequestMapping("/summary/insterComment/{log_id}/{userName}")
+    public String insterComment(@PathVariable Integer log_id,@PathVariable String userName,String content){
+
+        commentService.insterComment(log_id,userName,content);
+
+        return "redirect:/summary/detail/"+log_id;
     }
 }

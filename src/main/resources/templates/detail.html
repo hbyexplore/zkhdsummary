@@ -59,28 +59,30 @@
 				</div>
 				<div class="fly-panel detail-box" style="padding-top: 0;">
 					<a name="comment"></a>
-					<ul class="jieda photos" id="jieda">
+					<ul class="jieda photos" id="jieda" th:each="user : ${detail}">
 						<li data-id="12" class="jieda-daan">
 							<div>
-								<span class="avatar"></span>
+								<span class="avatar" th:text="${#strings.substring(user.getName(),0,1)}"></span>
 								<div>
-									<span class="name" sec:authentication="name"></span>
-										<span th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd')}"></span><br>
-										<span>评论内容</span>
+									<span class="name" th:text="${user.getName()}"></span>
+										<span th:text="${user.getDate()}"></span><br>
+										<span th:text="${user.getComment()}"></span>
+
+                                    <!--<script>
+                                        var name = $('.name').html().substring(0,1);
+
+                                        $('.avatar').html(name)
+                                    </script>-->
 								</div>								
 								<p></p>
                                 <!--截取姓名的第一个字-->
-                                <script>
-                                    var name = $('.name').html().substring(0,1);
 
-                                    $('.avatar').html(name)
-                                </script>
 							</div>
 						</li>						
 					</ul>
-					<span id="toName" th:text="${log.getUser().getName()}"></span>
+					<span id="toName" th:text="'@'+${log.getUser().getName()}+'  (楼主)'"></span>
 					<div class="layui-form layui-form-pane">
-						<form action="">
+						<form action="" method="get" id="insertComment">
 							<div class="layui-form-item layui-form-text">
 								<div class="layui-input-block">
 									<textarea id="L_content" name="content" required lay-verify="required" placeholder="我要回答" class="layui-textarea fly-editor"
@@ -90,7 +92,15 @@
 							<div class="layui-form-item">
 								<button class="layui-btn" lay-filter="*" lay-submit>提交回答</button>
 							</div>
+
 						</form>
+                        <span sec:authentication="name" id="userName" hidden="hidden"></span>
+                        <span th:text="${log.getId()}" hidden="hidden" id="log_id"></span>
+                        <script>
+                            var name = $('#userName').html();
+                            var log_id = $('#log_id').html();
+                            $('#insertComment').attr("action","/summary/insterComment/"+log_id+"/"+name);
+                        </script>
 					</div>
 				</div>
 			</div>

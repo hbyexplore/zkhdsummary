@@ -2,12 +2,11 @@ package com.summary.zkhdsummary.service.Impl;
 
 import com.github.pagehelper.PageHelper;
 
+import com.github.pagehelper.PageInfo;
 import com.summary.zkhdsummary.bean.Log;
-import com.summary.zkhdsummary.bean.LogExample;
 import com.summary.zkhdsummary.config.PageBean;
 import com.summary.zkhdsummary.bean.LogBean;
 import com.summary.zkhdsummary.bean.User;
-import com.summary.zkhdsummary.mapper.CommentMapper;
 import com.summary.zkhdsummary.mapper.LogMapper;
 import com.summary.zkhdsummary.mapper.UserMapper;
 import com.summary.zkhdsummary.service.LogService;
@@ -18,7 +17,6 @@ import java.util.*;
 
 @Service
 public class LogServiceImpl implements LogService {
-
     @Autowired
     private LogMapper logMapper;
     @Autowired
@@ -68,12 +66,13 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public List<LogBean> findList() {
+    public PageInfo<LogBean> findList(int currement, int pageSize) {
         //查询出log中所有的id
         List<Integer> summaryById = logMapper.findSummaryById();
         ArrayList<LogBean> logBeans = new ArrayList<>();
         for (Integer integer : summaryById) {
             //查询出页面展示需要的参数
+            PageHelper.startPage(currement,pageSize);
            LogBean logBean = logMapper.findList(integer);
            logBeans.add(logBean);
         }
@@ -83,8 +82,9 @@ public class LogServiceImpl implements LogService {
                 return (int) (o2.getLid() - o1.getLid());
             }
         });
-
-        return logBeans;
+        PageInfo<LogBean> objectPageInfo = new PageInfo<>(logBeans);
+        objectPageInfo.setPageSize(pageSize);
+        return objectPageInfo;
     }
 
     @Override

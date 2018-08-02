@@ -28,12 +28,12 @@
     <select id="findSummaryById" resultType="java.lang.Integer">
            select id from log;
     </select>
-<!--根据id查询出所有首页要展示的数据-->
+    <!--根据id查询出所有首页要展示的数据-->
     <select id="findList" resultType="com.summary.zkhdsummary.bean.LogBean" parameterType="int" >
           select u.id uid,u.name username,l.title ,l.date logDate,l.log logContent,l.id lid,COUNT(c.id) commentCount  from log l
             join user u on l.userid=u.id
             join comment c on l.id=c.log_id
-            WHERE l.id=#{id};
+            WHERE l.id=#{id}
     </select>
     <!--模糊查询数据-->
     <select id="searchLog"  resultType="com.summary.zkhdsummary.bean.LogBean">
@@ -64,7 +64,7 @@
       inner join  user u on l.userid = u.id
       where u.id = #{id}*/-->
     <select id="findAllLogById" resultType="com.summary.zkhdsummary.bean.Log" parameterType="java.lang.Integer">
-      select * from  log where userid=#{id}
+      select * from  log where userid=#{id} order by log.id desc
     </select>
     <!--根据user id 查出所有的log条数-->
     <select id="countLog" resultType="int" parameterType="java.lang.Integer">

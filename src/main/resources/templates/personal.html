@@ -87,53 +87,53 @@
 			</li>-->
 		</ul>
 		<div style="text-align: center">
-			<!--<nav>
-				<ul class="pagination">
-					&lt;!&ndash;<li><a href="">&laquo;</a></li>&ndash;&gt;
-					<li>
-						<a th:if="${not isFirstPage}" th:href="@{'/summary/persona?id='+2+'&currement='+(${pageBean.getCurrentPage()-1})+'&pageSize='+1}">上一页</a>
-						<a th:if="${isFirstPage}" href="javascript:void(0);">上一页</a>
-					</li>
+		<!--<nav>
+            <ul class="pagination">
+                &lt;!&ndash;<li><a href="">&laquo;</a></li>&ndash;&gt;
+                <li>
+                    <a th:if="${not isFirstPage}" th:href="@{'/summary/personal?id='+2+'&currement='+(${pageBean.getCurrentPage()-1})+'&pageSize='+1}">上一页</a>
+                    <a th:if="${isFirstPage}" href="javascript:void(0);">上一页</a>
+                </li>
 
-					<li th:each="pageNo : ${#numbers.sequence(1,pageBean.getTotalPage())}">
-						<a th:if="${pageNum eq pageNo}" href="javascript:void(0);">
-							<span th:text="${pageNo}" class="laypage-curr"></span>
-						</a>
+                <li th:each="pageNo : ${#numbers.sequence(1,pageBean.getTotalPage())}">
+                    <a th:if="${pageNum eq pageNo}" href="javascript:void(0);">
+                        <span th:text="${pageNo}" class="laypage-curr"></span>
+                    </a>
 
-						<a th:if="${not (pageNum eq pageNo)}" th:href="@{'/summary/persona?id='+2+'&currement='+(${pageNo})+'&pageSize='+1}">
-							<span th:text="${pageNo}"></span>
-						</a>
-					</li>
+                    <a th:if="${not (pageNum eq pageNo)}" th:href="@{'/summary/personal?id='+2+'&currement='+(${pageNo})+'&pageSize='+1}">
+                        <span th:text="${pageNo}"></span>
+                    </a>
+                </li>
 
-					<li>
-						<a th:if="${not isLastPage}" th:href="@{'/summary/persona?id='+2+'&currement='+(${pageBean.getCurrentPage()+1})+'&pageSize='+1}">下一页</a>
-						<a th:if="${isLastPage}" href="javascript:void(0);">下一页</a>
-					</li>
-					&lt;!&ndash;<li><a href="#">&raquo;</a></li>&ndash;&gt;
-				</ul>
-			</nav>-->
-			<nav>
-				<ul class="pagination">
-					<li>
-						<a th:if="${not isFirstPage}" th:href="@{'/summary/persona?id='+2+'&currement='+(${pageBean.getCurrentPage()-1})+'&pageSize='+1}">上一页</a>
-						<a th:if="${isFirstPage}" href="javascript:void(0);">上一页</a>
-					</li>
-					<!--(${pageBean.getPageSize()})-->
-					<li th:if="${pageNum -3 >=1}" ><a th:href="@{'/summary/persona?id='+2+'&currement='+(${pageBean.getCurrentPage()-3})+'&pageSize='+1}" th:text="${pageNum -3}" >1</a></li>
-					<li th:if="${pageNum -2 >=1}" ><a th:href="@{'/summary/persona?id='+2+'&currement='+(${pageBean.getCurrentPage()-2})+'&pageSize='+1}" th:text="${pageNum  -2}">1</a></li>
-					<li th:if="${pageNum -1 >=1}" ><a th:href="@{'/summary/persona?id='+2+'&currement='+(${pageBean.getCurrentPage()-1})+'&pageSize='+1}" th:text="${pageNum  -1}">1</a></li>
-					<li class="active"><a href="#" th:text="${pageNum}" >1</a></li>
-					<li th:if="${pageNum+1 <=totalPages}" ><a th:href="@{'/summary/persona?id='+2+'&currement='+(${pageBean.getCurrentPage()+1})+'&pageSize='+1}" th:text="${pageNum +1}" >1</a></li>
-					<li th:if="${pageNum+2 <=totalPages}" ><a th:href="@{'/summary/persona?id='+2+'&currement='+(${pageBean.getCurrentPage()+2})+'&pageSize='+1}" th:text="${pageNum +2}">1</a></li>
-					<li th:if="${pageNum+3 <=totalPages}" ><a th:href="@{'/summary/persona?id='+2+'&currement='+(${pageBean.getCurrentPage()+3})+'&pageSize='+1}" th:text="${pageNum +3}">1</a></li>
+                <li>
+                    <a th:if="${not isLastPage}" th:href="@{'/summary/personal?id='+2+'&currement='+(${pageBean.getCurrentPage()+1})+'&pageSize='+1}">下一页</a>
+                    <a th:if="${isLastPage}" href="javascript:void(0);">下一页</a>
+                </li>
+                &lt;!&ndash;<li><a href="#">&raquo;</a></li>&ndash;&gt;
+            </ul>
+        </nav>-->
+		<nav>
+			<ul class="pagination">
+				<li>
+					<a th:if="${not isFirstPage}" th:href="@{'/summary/personal?id='+${userId}+'&currement='+(${pageBean.getCurrentPage()-1})+'&pageSize='+${pageSize}}">上一页</a>
+					<a th:if="${isFirstPage}" href="javascript:void(0);">上一页</a>
+				</li>
+				<!--(${pageBean.getPageSize()})-->
+				<li th:if="${pageNum -3 >=1}" ><a th:href="@{'/summary/personal?id='+${userId}+'&currement='+(${pageBean.getCurrentPage()-3})+'&pageSize='+${pageSize}}" th:text="${pageNum -3}" >1</a></li>
+				<li th:if="${pageNum -2 >=1}" ><a th:href="@{'/summary/personal?id='+${userId}+'&currement='+(${pageBean.getCurrentPage()-2})+'&pageSize='+${pageSize}}" th:text="${pageNum  -2}">1</a></li>
+				<li th:if="${pageNum -1 >=1}" ><a th:href="@{'/summary/personal?id='+${userId}+'&currement='+(${pageBean.getCurrentPage()-1})+'&pageSize='+${pageSize}}" th:text="${pageNum  -1}">1</a></li>
+				<li class="active"><a href="#" th:text="${pageNum}" >1</a></li>
+				<li th:if="${pageNum+1 <=totalPages}" ><a th:href="@{'/summary/personal?id='+${userId}+'&currement='+(${pageBean.getCurrentPage()+1})+'&pageSize='+${pageSize}}" th:text="${pageNum +1}" >1</a></li>
+				<li th:if="${pageNum+2 <=totalPages}" ><a th:href="@{'/summary/personal?id='+${userId}+'&currement='+(${pageBean.getCurrentPage()+2})+'&pageSize='+${pageSize}}" th:text="${pageNum +2}">1</a></li>
+				<li th:if="${pageNum+3 <=totalPages}" ><a th:href="@{'/summary/personal?id='+${userId}+'&currement='+(${pageBean.getCurrentPage()+3})+'&pageSize='+${pageSize}}" th:text="${pageNum +3}">1</a></li>
 
-					<li>
-						<a th:if="${not isLastPage}" th:href="@{'/summary/persona?id='+2+'&currement='+(${pageBean.getCurrentPage()+1})+'&pageSize='+1}">下一页</a>
-						<a th:if="${isLastPage}" href="javascript:void(0);">下一页</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
+				<li>
+					<a th:if="${not isLastPage}" th:href="@{'/summary/personal?id='+${userId}+'&currement='+(${pageBean.getCurrentPage()+1})+'&pageSize='+${pageSize}}">下一页</a>
+					<a th:if="${isLastPage}" href="javascript:void(0);">下一页</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
 	</div>
 </body>
 

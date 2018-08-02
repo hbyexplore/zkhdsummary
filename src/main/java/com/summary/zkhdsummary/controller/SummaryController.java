@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 
@@ -43,18 +45,26 @@ public class SummaryController {
      * @return index
      */
     @RequestMapping(value = {"/","/index"})
-    public String index(Model model, HttpServletRequest httpServletRequest) {
+    public String index(Model model, HttpServletRequest httpServletRequest,
+                        @RequestParam(required = false, value = "currement", defaultValue = "1") int currement,
+                        @RequestParam(required = false, value = "pageSize", defaultValue = "5") int pageSize) {
         //获取到所有的user记录
-        List<LogBean> list = logService.findList();
+       // PageBean<LogBean> list = logService.findList(currement,pageSize);
+        PageInfo<LogBean> objectPageInfo = logService.findList(currement,pageSize);
+
+        //定时器
         List<String> objects = scheduTask.users;
-        model.addAttribute("users", list);
+        model.addAttribute("users", objectPageInfo.getList());
+        model.addAttribute("page", objectPageInfo);
         //如果request域中有查询到的数据就将数据存入model 没有就不存入还用原来查出的默认数据
         if (httpServletRequest.getAttribute("searchUsers") != null) {
             model.addAttribute("users", httpServletRequest.getAttribute("searchUsers"));
         }
+        //定时器
         if(objects != null && objects.size() != 0){
             model.addAttribute("nameList",objects);
         }
+
         return "index";
     }
 
@@ -84,17 +94,17 @@ public class SummaryController {
      * @return add.html
      */
     @GetMapping(value = {"/summary/addSummary/{name}"})
-    public String searchindessx(
+    public String searchindx(
             @PathVariable(name = "name") String username,
             @RequestParam(required = false, value = "title", defaultValue = "") String logTitle,
-            @RequestParam(required = false, value = "content", defaultValue = "") String logContent) {
+            @RequestParam(required = false, value = "content", defaultValue = "") String logContent) throws UnsupportedEncodingException {
         //没有写总结就跳到add页面
         if (logTitle.equals("") && logContent.equals("")){
             return "add";
         }
         //写了总结就存储总结返回个人中心页面
         logService.addSummary(username,logTitle,logContent);
-        return "personal";
+        return "redirect:/summary/personal?username="+new String(username.getBytes(),"iso8859-1");
         }
 
     /**
@@ -130,25 +140,33 @@ public class SummaryController {
      * 跳转到个人中心页面,展示出该用户所有的总结
      * @return
      */
-    @RequestMapping("/summary/personal/{username}")
+    @RequestMapping("/summary/personal")
     public String personal(Model model,HttpServletRequest request,
-                           @PathVariable String username,
+                           @RequestParam(required = false, value = "username", defaultValue = "") String username,
                            @RequestParam(required = false, value = "currement", defaultValue = "1") int currement,
-                           @RequestParam(required = false, value = "pageSize", defaultValue = "5") int pageSize
+                           @RequestParam(required = false, value = "pageSize", defaultValue = "5") int pageSize,
+                           @RequestParam(required = false, value = "id") Integer id
     ){
         //根据名称查询出该用户所有相关的评论
         //将信息封装到一个list集合中
-        User userId= userService.findUserIdByName(username);
-        PageBean<Log> pageBean = logService.findLogById(userId.getId(),currement,pageSize);
+        PageBean<Log> pageBean = new PageBean<>();
+        if (!username.equals("")){
+            User userId= userService.findUserIdByName(username);
+             pageBean = logService.findLogById(userId.getId(),currement,pageSize);
+            model.addAttribute("userId",userId.getId());
+        }else {
+             pageBean = logService.findLogById(id,currement,pageSize);
+            model.addAttribute("userId",id);
+
+        }
         List<Log> logList = pageBean.getItems();
         PageInfo pageInfo = new PageInfo(logList);
-        System.out.println(logList);
         model.addAttribute("logList",logList);
         model.addAttribute("pageBean",pageBean);
         //获得当前页
         model.addAttribute("pageNum", pageInfo.getPageNum());
         //获得一页显示的条数
-        model.addAttribute("pageSize", pageInfo.getPageSize());
+        model.addAttribute("pageSize", pageSize);
         //是否是第一页
         model.addAttribute("isFirstPage", pageInfo.isIsFirstPage());
         //获得总页数

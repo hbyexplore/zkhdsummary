@@ -10,6 +10,8 @@
 	<meta name="description" content="">
 	<!--th:href="@{/layui/css/layui.css}  该路径最前面不加/只替换二级目录 加/替换一级目录-->
 	<link rel="stylesheet" href="static/layui/css/layui.css" th:href="@{/layui/css/layui.css}">
+
+	<link rel="stylesheet" href="static/layui/css/bootstrap.min.css" th:href="@{/layui/css/bootstrap.min.css}">
 	<link rel="stylesheet" href="static/css/global.css" th:href="@{/css/global.css}">
 	<script src="static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
 	<style scoped>
@@ -102,35 +104,6 @@
 		#m65{
 			margin-top: 65px;
 		}
-
-		.nosign {
-			width: 150px;
-			height: 100%;
-			position: fixed;
-			left: 0;
-			top: 65px;
-			z-index: 100;
-			padding: 15px;
-			border: 1px solid #2F4056;
-		}
-		.title11{
-			font-size: 15px;
-			background-color: #009688;
-			padding: 5px 15px;
-			color: #ffffff;
-			text-align: center;
-		}
-		.nosign>ul>li{
-			font-size: 14px;
-			padding: 8px 15px;
-			border-bottom: 1px solid #2F4056;
-			border-left: 1px solid #2F4056;
-			border-right: 1px solid #2F4056;
-		}
-		.father{
-			position: relative;
-		}
-
 	</style>
 </head>
 
@@ -165,7 +138,7 @@
 			<div class="wrap">
 				<ul class="fly-list">
 					<!--使用th:each进行遍历-->
-					<li class="fly-list-li" th:each="user:${users}" >
+					<li class="fly-list-li" th:each="user:${users}" style="height: 65px">
 						<span class="avatar" th:text="${#strings.substring(user.getUsername(),0,1)}"></span>
 						<h2 class="fly-tip">
 							<a href="/summary/detail" th:href="@{'/summary/detail/'+${user.getLid()}}"> [[${user.getTitle()}]] </a>
@@ -184,18 +157,28 @@
 
 				<!-- <div class="fly-none">并无相关数据</div> -->
 
-				<div style="text-align: center">
-					<div class="laypage-main">
-						<span class="laypage-curr">1</span>
-						<a href="">2</a>
-						<a href="">3</a>
-						<a href="">4</a>
-						<a href="">5</a>
-						<span>…</span>
-						<a href="" class="laypage-last" title="尾页">尾页</a>
-						<a href="" class="laypage-next">下一页</a>
-					</div>
-				</div>
+			<div style="text-align: center">
+                                    <nav>
+                                        <ul class="pagination">
+                                            <li>
+                                                <a th:if="${not page.isFirstPage}" th:href="@{'/summary/personal?currement='+(${page.getPageNum()-1})+'&pageSize='+${page.getPageSize()}}">上一页</a>
+                                                <a th:if="${page.isFirstPage}" href="javascript:void(0);">上一页</a>
+                                            </li>
+                                            <li th:if="${page.pageNum -3 >=1}" ><a th:href="@{'/summary/personal?currement='+(${page.getPageNum()-3})+'&pageSize='+${page.getPageSize()}}" th:text="${page.pageNum -3}" >1</a></li>
+                                            <li th:if="${page.pageNum -2 >=1}" ><a th:href="@{'/summary/personal?currement='+(${page.getPageNum()-2})+'&pageSize='+${page.getPageSize()}}" th:text="${page.pageNum  -2}">1</a></li>
+                                            <li th:if="${page.pageNum -1 >=1}" ><a th:href="@{'/summary/personal?currement='+(${page.getPageNum()-1})+'&pageSize='+${page.getPageSize()}}" th:text="${page.pageNum  -1}">1</a></li>
+                                            <li class="active"><a href="#" th:text="${page.pageNum}" >1</a></li>
+                                            <li th:if="${page.pageNum+1 <=page.getTotal()}" ><a th:href="@{'/summary/personal?currement='+(${page.getPageNum()+1})+'&pageSize='+${page.getPageSize()}}" th:text="${page.pageNum +1}" >1</a></li>
+                                            <li th:if="${page.pageNum+2 <=page.getTotal()}" ><a th:href="@{'/summary/personal?currement='+(${page.getPageNum()+2})+'&pageSize='+${page.getPageSize()}}" th:text="${page.pageNum +2}">1</a></li>
+                                            <li th:if="${page.pageNum+3 <=page.getTotal()}" ><a th:href="@{'/summary/personal?currement='+(${page.getPageNum()+3})+'&pageSize='+${page.getPageSize()}}" th:text="${page.pageNum +3}">1</a></li>
+
+                                            <li>
+                                                <a th:if="${not page.isLastPage}" th:href="@{'/summary/personal?currement='+(${page.getPageNum()+1})+'&pageSize='+${page.getPageSize()}}">下一页</a>
+                                                <a th:if="${page.isLastPage}" href="javascript:void(0);">下一页</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
 
 			</div>
 		</div>
@@ -207,12 +190,6 @@
             var name = $('#userName').html();
 			$('#everdaySummary').attr("href","/summary/addSummary/"+name);
 		</script>
-		<div class="nosign">
-			<h3 class="title11"> <span>[[${#dates.format(new java.util.Date().getTime(),'yyyy-MM-dd')}]]</span>未总结</h3>
-			<ul th:each="user : ${nameList}">
-				<li><span class="father" th:text="${user}"></span></li>
-			</ul>
-		</div>
 	</div>
 
 </body>

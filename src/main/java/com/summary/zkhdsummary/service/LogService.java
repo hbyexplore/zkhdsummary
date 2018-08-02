@@ -1,5 +1,6 @@
 package com.summary.zkhdsummary.service;
 
+import com.github.pagehelper.PageInfo;
 import com.summary.zkhdsummary.bean.Log;
 import com.summary.zkhdsummary.bean.LogBean;
 import com.summary.zkhdsummary.bean.User;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public interface LogService {
     Log findLogById(int id);
-    List<LogBean> findList();
+    PageInfo<LogBean> findList(int currement, int pageSize);
 
     List findTime(List<User> list);
     //查询全部的总结内容

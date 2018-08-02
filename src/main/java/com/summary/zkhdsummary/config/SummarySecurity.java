@@ -48,6 +48,7 @@ public class SummarySecurity extends WebSecurityConfigurerAdapter {
 
         List<User> allUser = userService.findAllUser();
         for(User user : allUser){
+
             auth.inMemoryAuthentication()
                     .withUser(user.getName()).password(user.getPassword()).roles(user.getUserPower().getPower());
         }

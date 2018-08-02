@@ -1,31 +1,26 @@
 package com.summary.zkhdsummary.controller;
 
 
-import com.summary.zkhdsummary.bean.*;
-import com.summary.zkhdsummary.service.CommentService;
 import com.github.pagehelper.PageInfo;
+import com.summary.zkhdsummary.bean.Detail;
 import com.summary.zkhdsummary.bean.Log;
+import com.summary.zkhdsummary.bean.LogBean;
+import com.summary.zkhdsummary.bean.User;
 import com.summary.zkhdsummary.config.PageBean;
-import com.summary.zkhdsummary.config.SummarySecurity;
+import com.summary.zkhdsummary.service.CommentService;
 import com.summary.zkhdsummary.service.LogService;
 import com.summary.zkhdsummary.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.summary.zkhdsummary.bean.Log;
-import com.summary.zkhdsummary.service.LogService;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.summary.zkhdsummary.bean.LogBean;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-
 
 @Controller
 public class SummaryController {
@@ -67,7 +62,6 @@ public class SummaryController {
 
         return "index";
     }
-
     /**
      * 根据 名字,总结时间进行搜索展示
      *
@@ -93,13 +87,10 @@ public class SummaryController {
      *
      * @return add.html
      */
-    @GetMapping(value = {"/summary/addSummary/{name}"})
-    public String searchindx(
-            @PathVariable(name = "name") String username,
-            @RequestParam(required = false, value = "title", defaultValue = "") String logTitle,
-            @RequestParam(required = false, value = "content", defaultValue = "") String logContent) throws UnsupportedEncodingException {
+    @GetMapping(value = {"/summary/addSummary/{username}"})
+    public String searchindx(@PathVariable String username,String logTitle,String logContent) throws UnsupportedEncodingException {
         //没有写总结就跳到add页面
-        if (logTitle.equals("") && logContent.equals("")){
+        if (logTitle==null && logContent==null){
             return "add";
         }
         //写了总结就存储总结返回个人中心页面
@@ -152,7 +143,7 @@ public class SummaryController {
         PageBean<Log> pageBean = new PageBean<>();
         if (!username.equals("")){
             User userId= userService.findUserIdByName(username);
-             pageBean = logService.findLogById(userId.getId(),currement,pageSize);
+            pageBean = logService.findLogById(userId.getId(),currement,pageSize);
             model.addAttribute("userId",userId.getId());
         }else {
              pageBean = logService.findLogById(id,currement,pageSize);

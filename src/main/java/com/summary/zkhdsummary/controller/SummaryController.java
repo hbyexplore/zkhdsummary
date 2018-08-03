@@ -117,9 +117,9 @@ public class SummaryController {
         }
         //如果没查到数据没空就返回首页
         if (logBeans.size() == 0) {
-            return "redirect:/index";
+            return "redirect:/";
         }
-        return "forward:/index";
+        return "forward:/";
     }
 
     /**
@@ -130,7 +130,7 @@ public class SummaryController {
     @GetMapping(value = {"/summary/addSummary/{username}"})
     public String searchindx(@PathVariable String username,String logTitle,String logContent) throws UnsupportedEncodingException {
         if (username.equals("anonymousUser")){
-            return "redirect:/index";
+            return "redirect:/";
         }
         //没有写总结就跳到add页面
         if (logTitle==null && logContent==null){

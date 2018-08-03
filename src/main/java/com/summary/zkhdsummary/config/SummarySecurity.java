@@ -10,9 +10,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
 
+import javax.sql.DataSource;
 import java.util.List;
-
 
 @EnableWebSecurity
 public class SummarySecurity extends WebSecurityConfigurerAdapter {
@@ -48,9 +49,9 @@ public class SummarySecurity extends WebSecurityConfigurerAdapter {
 
         List<User> allUser = userService.findAllUser();
         for(User user : allUser){
-
             auth.inMemoryAuthentication()
                     .withUser(user.getName()).password(user.getPassword()).roles(user.getUserPower().getPower());
+
         }
     }
 

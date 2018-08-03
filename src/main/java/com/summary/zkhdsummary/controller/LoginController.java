@@ -54,7 +54,7 @@ public class LoginController{
               }
           }
             userService.insterUser(user);
-            return "redirect:/";
+            return "redirect:/loginPage";
         }
 
         return "register";

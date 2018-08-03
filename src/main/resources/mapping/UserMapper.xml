@@ -9,7 +9,7 @@
         <result column="card" property="card"></result>
         <association property="userPower" javaType="com.summary.zkhdsummary.bean.Power">
              <id column="id" property="id"></id>
-            <result column="power" property="power"></result>
+             <result column="power" property="power"></result>
         </association>
     </resultMap>
 
@@ -77,7 +77,7 @@
     <select id="findByid" resultMap="basicUser" parameterType="java.lang.Integer">
       select  * from user where id=#{id};
     </select>
-<!--名字重复需要更改-->
+    <!--名字重复需要更改-->
     <select id="findAllUser" resultMap="basicUser">
       select u.*,p.* from  user u join power p on u.user_power = p.id
     </select>
@@ -100,4 +100,12 @@
     <select id="findUserIdByName" resultType="com.summary.zkhdsummary.bean.User" parameterType="string">
         select id from user where name = #{name}
     </select>
+
+
+    <!-- 根据名字查用户
+  -->
+    <select id="findByUserName" resultMap="basicUser" parameterType="string">
+        select u.*,p.* from user u ,power p where name=#{s} and u.user_power=p.id;
+    </select>
+
 </mapper>

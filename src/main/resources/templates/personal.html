@@ -78,62 +78,8 @@
 					</div>
 				</div>
 			</li>
-			<!--<li class="list-group-item">
-				<div class="panel panel-success">
-					<div class="panel-heading">
-						<h3>今天我敲了一段代码
-							<small style="margin:0 15px;">2017/7/30</small>
-							<small>浏览量：30</small>
-						</h3>
-					</div>
-					<div class="panel-body">
-						通过在文本输入框
-						<input> 前面、后面或是两边加上文字或按钮，可以实现对表单控件的扩展。为 .input-group 赋予 .input-group-addon 或 .input-group-btn 类，可以给 .form-control 的前面或后面添加额外的元素。通过在文本输入框
-						<input> 前面、后面或是两边加上文字或按钮，可以实现对表单控件的扩展。为 .input-group 赋予 .input-group-addon 或 .input-group-btn 类，可以给 .form-control 的前面或后面添加额外的元素。通过在文本输入框
-						<input> 前面、后面或是两边加上文字或按钮，可以实现对表单控件的扩展。为 .input-group 赋予 .input-group-addon 或 .input-group-btn 类，可以给 .form-control 的前面或后面添加额外的元素。
-					</div>
-				</div>
-			</li>
-			<li class="list-group-item">
-				<div class="panel panel-success">
-					<div class="panel-heading">
-						<h3>今天我敲了一段代码
-							<small style="margin:0 15px;">2017/7/30</small>
-							<small>浏览量：30</small>
-						</h3>
-					</div>
-					<div class="panel-body">
-						暂无内容
-					</div>
-				</div>
-			</li>-->
 		</ul>
 		<div style="text-align: center">
-		<!--<nav>
-            <ul class="pagination">
-                &lt;!&ndash;<li><a href="">&laquo;</a></li>&ndash;&gt;
-                <li>
-                    <a th:if="${not isFirstPage}" th:href="@{'/summary/personal?id='+2+'&currement='+(${pageBean.getCurrentPage()-1})+'&pageSize='+1}">上一页</a>
-                    <a th:if="${isFirstPage}" href="javascript:void(0);">上一页</a>
-                </li>
-
-                <li th:each="pageNo : ${#numbers.sequence(1,pageBean.getTotalPage())}">
-                    <a th:if="${pageNum eq pageNo}" href="javascript:void(0);">
-                        <span th:text="${pageNo}" class="laypage-curr"></span>
-                    </a>
-
-                    <a th:if="${not (pageNum eq pageNo)}" th:href="@{'/summary/personal?id='+2+'&currement='+(${pageNo})+'&pageSize='+1}">
-                        <span th:text="${pageNo}"></span>
-                    </a>
-                </li>
-
-                <li>
-                    <a th:if="${not isLastPage}" th:href="@{'/summary/personal?id='+2+'&currement='+(${pageBean.getCurrentPage()+1})+'&pageSize='+1}">下一页</a>
-                    <a th:if="${isLastPage}" href="javascript:void(0);">下一页</a>
-                </li>
-                &lt;!&ndash;<li><a href="#">&raquo;</a></li>&ndash;&gt;
-            </ul>
-        </nav>-->
 		<nav>
 			<ul class="pagination">
 				<li>

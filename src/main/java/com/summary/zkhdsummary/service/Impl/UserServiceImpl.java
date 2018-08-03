@@ -19,11 +19,11 @@ public class UserServiceImpl implements UserService {
      * 查出所有的用户
      * @return
      */
-    @Override
+    /*@Override
     public List<User> findAllUser() {
         List<User> users = userMapper.findAllUser();
         return users;
-    }
+    }*/
 
     @Override
     public List<Integer> findAllCrad() {

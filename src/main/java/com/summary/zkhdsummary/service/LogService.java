@@ -9,16 +9,10 @@ import java.util.List;
 
 public interface LogService {
     Log findLogById(int id);
-   // PageBean<LogBean> findList(int currement, int pageSize);
-
-    List findTime(List<User> list);
     //查询全部的总结内容
     PageBean<Log> findLogById(Integer id,int currement,int pageSize);
 
     List<Integer> findUserByDate(String date);
-
-
-    List<List<Log>> findSummary(List<User> listTime);
 
     PageBean<LogBean> searchLog(String username, String userdate, int currement, int pageSize);
 

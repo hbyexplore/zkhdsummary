@@ -29,4 +29,7 @@ public class FormatDuring {
         return day+"天"+hour+"小时"+minute+"分钟"+second+"秒前";
     }
 
+    public static void main(String[] args) {
+
+    }
 }

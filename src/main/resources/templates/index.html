@@ -213,7 +213,7 @@
 		<a href="/summary/add" class="everyday" id="everdaySummary">每日总结</a>
 
 		<div class="nosign">
-			<h3 class="title1"> <span>[[${#dates.format(new java.util.Date().getTime(),"yyyy-MM-dd")}]]</span>未总结</h3>
+			<h3 class="title1"> <span th:text="${showTime}"></span>未总结</h3>
 			<ul th:each="user : ${nameList}">
 				<li><span class="father" th:text="${user}">胡立鹏 </span></li>
 			</ul>

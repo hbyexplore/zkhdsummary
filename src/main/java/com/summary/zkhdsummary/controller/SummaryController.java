@@ -2,13 +2,11 @@ package com.summary.zkhdsummary.controller;
 
 
 import com.github.pagehelper.PageInfo;
-import com.summary.zkhdsummary.bean.Detail;
-import com.summary.zkhdsummary.bean.Log;
-import com.summary.zkhdsummary.bean.LogBean;
-import com.summary.zkhdsummary.bean.User;
+import com.summary.zkhdsummary.bean.*;
 import com.summary.zkhdsummary.config.PageBean;
 import com.summary.zkhdsummary.service.CommentService;
 import com.summary.zkhdsummary.service.LogService;
+import com.summary.zkhdsummary.service.SubmitService;
 import com.summary.zkhdsummary.service.UserService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.UnsupportedEncodingException;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 @Controller
@@ -35,6 +35,9 @@ public class SummaryController {
 
     @Autowired
     private ScheduTask scheduTask;
+
+    @Autowired
+    private SubmitService submitService;
     /**
      * 访问首页 列表展示
      *
@@ -45,10 +48,10 @@ public class SummaryController {
                         @RequestParam(value = "username", required = false, defaultValue = "") String username,
                         @RequestParam(value = "userdate", required = false, defaultValue = "") String userdate,
                         @RequestParam(required = false, value = "currement", defaultValue = "1") int currement,
-                        @RequestParam(required = false, value = "pageSize", defaultValue = "10") int pageSize) {
+                        @RequestParam(required = false, value = "pageSize", defaultValue = "10") int pageSize) throws ParseException {
         //如果request域中有查询到的数据就将数据存入model 没有就不存入还用原来查出的默认数据
         if (httpServletRequest.getAttribute("searchUsers") != null) {
-            model.addAttribute("users", httpServletRequest.getAttribute("searchUsers"));
+            model.addAttribute("users" , httpServletRequest.getAttribute("searchUsers"));
             return "index";
         }else {
             //获取到所有的user记录
@@ -73,13 +76,60 @@ public class SummaryController {
 
             model.addAttribute("userdate", userdate);
         }
+
+        Set<String> userList = new LinkedHashSet<>();
         //定时器
         List<String> objects = scheduTask.users;
 
-        //定时器
-        if(objects != null && objects.size() != 0){
-            model.addAttribute("nameList",objects);
+        if(objects == null || objects.size() == 0){
+            //在将全部的数据查询出来
+            List<NoSubmiat> all = submitService.findAll();
+            for(int K = 0 ; K< all.size() ; K++){
+                NoSubmiat noSubmiat = all.get(K);
+                userList.add(noSubmiat.getUnames());
+
+            }
+        }else{
+
+        for(int i = 0 ; i<objects.size() ; i++){
+            String s = objects.get(i);
+            //将当天没有提交总结的员工存入到数据库中
+           // submitService.insert(s);
+            //在将全部的数据查询出来
+//             List<NoSubmiat> all = submitService.findAll();
+//            for(int K = 0 ; K< all.size() ; K++){
+//                NoSubmiat noSubmiat = all.get(K);
+            userList.add(s);
+//        }
+    }
+}
+
+        //获取当天时间的时分
+        SimpleDateFormat simp = new SimpleDateFormat("yyyy-MM-dd 17:31:00");
+        String date = simp.format(new Date());
+        Date parse = simp.parse(date);
+        Calendar c = Calendar.getInstance();
+        c.setTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date));
+        long time1 = c.getTimeInMillis();
+        SimpleDateFormat simp1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        long time = System.currentTimeMillis();
+        if(time < time1){
+            SimpleDateFormat simp2 = new SimpleDateFormat("yyyy-MM-dd");
+            //获取当天时间的前一天
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(parse);
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+            parse = calendar.getTime();
+            String format = simp2.format(parse);
+            model.addAttribute("showTime",format);
+        }else if(time > time1){
+            SimpleDateFormat simp3 = new SimpleDateFormat("yyyy-MM-dd");
+            model.addAttribute("showTime",simp3.format(new Date()));
         }
+
+        //定时器
+        model.addAttribute("nameList",userList);
+        System.out.println(userList);
         return "index";
     }
     /**
@@ -89,7 +139,7 @@ public class SummaryController {
      */
     @GetMapping(value = {"/summary/search"})
     public String searchindex(@RequestParam(value = "username", required = false, defaultValue = "") String username, @RequestParam(value = "userdate", required = false, defaultValue = "") String userdate,
-                              @RequestParam(required = false, value = "currement", defaultValue = "1") int currement,
+                              @RequestParam(required = false, value = "currement",defaultValue = "1") int currement,
                               @RequestParam(required = false, value = "pageSize", defaultValue = "10") int pageSize,Model model, HttpServletRequest
             httpServletRequest) {
         //查出需要分页的pageBean

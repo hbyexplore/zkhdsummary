@@ -4,7 +4,7 @@ server:
 spring:
     datasource:
         name: summary
-        url: jdbc:mysql://192.168.103.7:3306/summary?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        url: jdbc:mysql:///ribao?useUnicode=true&characterEncoding=utf-8&useSSL=false
         username: root
         password: admin123
 

@@ -28,7 +28,7 @@ public class CustomUserService implements UserDetailsService {
         }
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         //用于添加用户的权限。
-            authorities.add(new SimpleGrantedAuthority(user.getUserPower().getPower()));
+                authorities.add(new SimpleGrantedAuthority(user.getUserPower().getPower()));
             System.out.println(authorities);
 //        user.getName(),user.getPassword(),authorities
 
